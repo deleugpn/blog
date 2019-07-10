@@ -1,6 +1,7 @@
 ---
 title: Learning About Gatsby
 date: "2019-07-10T21:47:42.284Z"
+description: I should stop procrastinating and start my blog.
 ---
 
 After procrastinating for over 1 year I think I finally decided
