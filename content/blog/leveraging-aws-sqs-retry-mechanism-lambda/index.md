@@ -33,7 +33,7 @@ like this:
         - !Sub "arn:aws:lambda:${AWS::Region}:209497400698:layer:php-73:6"
       Runtime: provided
       VpcConfig:
-        SecurityGroupIds: [!ImportValue AllowAllAddressesContainerSecurityGroup]
+        SecurityGroupIds: [!ImportValue DefaultSecurityGroup]
         SubnetIds: !Split [',', !ImportValue PrivateSubnets]
       DeadLetterQueue:
         Type: SQS
@@ -61,7 +61,7 @@ have another lambda use that DLQ as the source of Events.
         - !Sub "arn:aws:lambda:${AWS::Region}:209497400698:layer:php-73:6"
       Runtime: provided
       VpcConfig:
-        SecurityGroupIds: [!ImportValue AllowAllAddressesContainerSecurityGroup]
+        SecurityGroupIds: [!ImportValue DefaultSecurityGroup]
         SubnetIds: !Split [',', !ImportValue PrivateSubnets]
       Events:
         Retries:
