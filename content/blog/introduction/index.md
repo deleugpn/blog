@@ -21,8 +21,8 @@ surprise surprise, **cheap**!
 are the primary reason why I wanted
 to beat my procrastination and start my blog. I feel like
 I have a once-in-a-lifetime opportunity to write about something
-that I have a bit of knowledge in a time where not everyone knows
-more than I do. I want to share my experience running
+that I have a tiny bit of knowledge in a time where not everyone knows
+so much more than me. I want to share my experience running
 [Laravel](https://https://laravel.com) on AWS and the challenges
 of rebuilding a legacy application.
 
