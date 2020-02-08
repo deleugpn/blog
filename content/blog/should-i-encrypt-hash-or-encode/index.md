@@ -21,7 +21,7 @@ development, encoding often comes up as a way of transferring data
 from one page into another while respecting HTTP's limitation.
 A good demonstration is redirection with parameters. HTTP dictates
 that URL parameters comes after a `?` character. But what if you want
-to send an actual`?` as a value of a parameter? .e.g `?name=?`.
+to send an actual `?` as a value of a parameter? .e.g `?name=?`.
 Similarly, the ampersand character `&` is used to separate parameters
 such as `?name=deleu&age=28`, but if you want to send an actual `&`
 as a value of a parameter, encoding is a good strategy for it.
@@ -127,7 +127,7 @@ the ground up to be one-way. Once you hash a piece of information,
 it never returns to it's original state. But an important property
 of hashing algorithms is that they produce a fixed size hash.
 MD5 outputs a hash of 32 characters. The characters used by md5 are
-a to f and 0 to 9. That means 36 different possibilities for each
+a to f and 0 to 9. That means 16 different possibilities for each
 character. There exists "only" 32^16  (or 1,208,925,819,614,629,174,706,176).
 This is an incredibly big number, but still finite. The fact that there
 is absolutely no limit of what you can use as input of a hash algorithm,
