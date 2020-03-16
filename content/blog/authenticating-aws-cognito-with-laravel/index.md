@@ -1,6 +1,6 @@
 ---
 title: Authenticating AWS Cognito with Laravel
-date: "2020-03-15T15:01:23.284Z"
+date: "2020-03-16T21:16:23.284Z"
 description: Validating a Cognito Token with Laravel Auth 
 ---
 
