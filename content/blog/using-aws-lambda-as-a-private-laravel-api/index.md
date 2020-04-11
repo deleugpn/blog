@@ -55,7 +55,7 @@ and kept the source code pretty much as-is.
 #### Lambda Invoke to Http Request
 
 The mindset behind this problem that lead me to this solution was this:
-Larave has an `index.php` file which captures the Request information
+Laravel has an `index.php` file which captures the Request information
 from the PHP Superglobals and handles the request through the Http Kernel.
 If I write a different "`index.php`" that simulates the exact same behavior,
 but instead of extracting the request data from the Superglobals it
