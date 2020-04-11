@@ -47,8 +47,8 @@ context. Some people may argue that this is a bad design or that
 "a Request object shouldn't know how to validate itself" and that
 this bad design lead me to a coupling with the Http Context that 
 I couldn't get rid easily. While all this may be true, I still think
-it's far more beneficial than damaging. After all, this is one service
- / a few APIs among thousands of APIs that actually needed to swap
+it's far more beneficial than damaging. After all, this is a handful of
+APIs among thousands of APIs that actually ended up needing to swap
 Http context with something else. And in the end, I got creative
 and kept the source code pretty much as-is.
 
