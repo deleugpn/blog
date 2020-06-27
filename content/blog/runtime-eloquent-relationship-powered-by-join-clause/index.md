@@ -1,6 +1,6 @@
 ---
 title: Runtime Eloquent Relationship powered by Join clause
-date: "2020-03-29T20:45:14.284Z"
+date: "2020-06-29T20:45:14.284Z"
 description: How to make a Runtime relationship to support a specific report 
 ---
 
