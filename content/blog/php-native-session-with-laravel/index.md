@@ -1,6 +1,6 @@
 ---
 title: PHP Native Session with Laravel
-date: "2020-05-04T20:46:30.284Z"
+date: "2020-10-18T13:10:48.284Z"
 description: authenticating users against an existing $_SESSION
 ---
 
