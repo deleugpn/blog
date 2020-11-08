@@ -1,0 +1,69 @@
+<html>
+<head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages': ['timeline']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            let container = document.getElementById('timeline');
+            let chart = new google.visualization.Timeline(container);
+            let dataTable = new google.visualization.DataTable();
+
+            dataTable.addColumn({ type: 'string', id: 'Name' });
+            dataTable.addColumn({type: 'string', id: 'Info'});
+            dataTable.addColumn({type: 'date', id: 'Start'});
+            dataTable.addColumn({type: 'date', id: 'End'});
+
+            let jan = 0, feb = 1, mar = 2, apr = 3, may  = 4, jun = 5, jul = 6, aug = 7, sep = 8, oct = 9, nov = 10, dec = 11;
+
+            let now = new Date()
+
+            dataTable.addRows([
+                ['Frontend', 'ActionScript / Flex', new Date(2010, jan, 1), new Date(2013, mar, 1)],
+                ['Frontend', 'HTML / JS', new Date(2013, mar, 1), new Date(2015, apr, 1)],
+
+                ['Source Code', 'SFTP / SSH', new Date(2010, jan, 1), new Date(2012, mar, 1)],
+                ['Source Code', 'Mercurial', new Date(2012, mar, 1), new Date(2015, jan, 1)],
+                ['Source Code', 'Git', new Date(2015, jan, 1), now],
+
+                ['Language', 'PHP', new Date(2010, jan, 1), now],
+                ['Language', 'Typescript', new Date(2020, aug, 1), now],
+
+                ['Database', 'MySQL', new Date(2010, jan, 1), now],
+                ['Database', 'Oracle', new Date(2011, feb, 1), new Date(2013, dec, 1)],
+                ['Database', 'Aurora MySQL', new Date(2018, aug, 1), now],
+                ['Database', 'DynamoDB', new Date(2019, mar, 1), new Date(2019, oct, 1)],
+                ['Database', 'Elasticsearch', new Date(2020, oct, 1), now],
+
+                ['Framework', 'Laravel', new Date(2016, jan, 1), now],
+                ['Framework', 'PHPUnit', new Date(2016, apr, 1), now],
+                ['Framework', 'PHPStan', new Date(2019, aug, 1), now],
+                ['Framework', 'AMFPHP', new Date(2010, oct, 1), new Date(2013, mar, 1)],
+
+                ['Virtualization', 'VirtualBox', new Date(2013, may, 1), new Date(2016, jan, 1)],
+                ['Virtualization', 'Vagrant', new Date(2016, jan, 1), new Date(2017, jan, 1)],
+                ['Virtualization', 'Docker', new Date(2017, jan, 1), now],
+                ['Virtualization', 'Alpine', new Date(2018, jan, 1), now],
+
+                ['Host', 'Plesk', new Date(2010, oct, 1), new Date(2013, nov, 1)],
+                ['Host', 'cPanel', new Date(2013, nov, 1), new Date(2017, jan, 1)],
+                ['Host', 'AWS', new Date(2017, jan, 1), now],
+
+                ['AWS', 'CloudFormation', new Date(2017, jul, 1), now],
+                ['AWS', 'CodePipeline', new Date(2017, jul, 1), now],
+                ['AWS', 'CodeBuild', new Date(2017, jul, 1), now],
+                ['AWS', 'Fargate', new Date(2018, jan, 1), now],
+                ['AWS', 'SQS', new Date(2018, apr, 1), now],
+                ['AWS', 'VPC', new Date(2018, oct, 1), now],
+                ['AWS', 'Lambda', new Date(2019, jan, 1), now],
+            ]);
+
+            chart.draw(dataTable);
+        }
+    </script>
+</head>
+<body>
+<div id="timeline" style="height: 800px;"></div>
+</body>
+</html>
