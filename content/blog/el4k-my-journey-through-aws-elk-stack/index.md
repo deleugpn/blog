@@ -1,5 +1,5 @@
 ---
-title: EL^4K: My Journey through AWS ELK Stack
+title: "EL^4K: My Journey through AWS ELK Stack"
 date: "2021-01-04T21:29:37.284Z"
 description: How I designed an ELK stack on AWS
 ---
