@@ -98,7 +98,7 @@ and each customer has a high range of users.
 Lastly I looked into Prometheus. If you heard about Prometheus you know that it
 offers an interesting approach where services write logs to a local scope with little
 or no overhead at all and a separate service managed by Prometheus is supposed to 
-consume that. However, the service reporting service I'm focusing is running on
+consume that. However, the reporting service I'm focusing is running on
 AWS Lambda with Bref. AWS Lambda is as ephemeral as it gets. Other services
 are also running as a container on Fargate. Although they're not so limited as AWS Lambda,
 it's still a closed environment which I don't want to be customizing so much to get
@@ -126,7 +126,7 @@ That meant I could collect metrics using UDP while write logs using TCP.
 Kibana would then allow me to filter on any field, aggregate number of execution
 and group by customers or users. Everything I wanted in one place.
 
-#### ELLLLK or EL^4K
+#### ELLLLK or E4LK
 
 If you remember from the introduction, we already have an Elasticsearch cluster on
 a shared account, a Logstash container working an SQS queue and Kibana up and running.
