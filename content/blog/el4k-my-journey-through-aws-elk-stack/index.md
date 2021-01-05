@@ -21,8 +21,8 @@ to get data into Elasticsearch: via an SQS Queue.
 You see, we have one of those so-called AWS Classic Account
 which existed before VPC was ever a thing. And in that account
 we have 1 SQS Queue which is worked by a Logstash container
-on a newer and limited account that only holds some generic
-(not-relevant) things and AWS Elasticsearch.
+on a newer and limited account that holds AWS Elasticsearch
+and some other things.
 
 ![Legacy Setup](./1.png)
 
