@@ -334,6 +334,9 @@ Logstash as a Fargate Container
 while for the temperature sensor collector I have an AWS Lambda
 function as the worker of SQS.
 
+Special thanks to [Matthieu Napoli](https://twitter.com/matthieunapoli) for
+working on Paddle Webhook + API Gateway + SQS on [https://port7777.com](https://port7777.com)!
+
 As always, hit me up on [Twitter](https://twitter.com/deleugyn) with any
 questions. 
 
