@@ -1,5 +1,5 @@
 ---
-title: Laravel Report: Dynamic Page Size
+title: "Laravel Report: Dynamic Page Size"
 date: "2021-03-06T21:51:49.521Z"
 description: Letting API caller define page size
 ---
