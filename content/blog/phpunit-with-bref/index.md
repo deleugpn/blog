@@ -281,8 +281,15 @@ Remember, when the code is actually running inside AWS Lambda, we'll
 have the Layer ARN including this extension. The docker image is
 just a convenience for local development / CI server to keep parity.
 
-The following sequence of commands will bring the files that we need
-outside of the container
+
+> _Update (March 2021): I found an easier and more efficient
+> way of enabling extensions without having to manually
+> copy the extension files. 
+> [Read more about it here](https://blog.deleu.dev/phpunit-with-bref-1-0/)._
+
+
+~~The following sequence of commands will bring the files that we need
+outside of the container~~ 
 
 ```shell script
 docker run --entrypoint /bin/bash --user root -w /tmp/php-ext -v $(pwd)/php/build/ext-gmp-php74:/tmp/php-ext -it bref/extra-gmp-php-74
