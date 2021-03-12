@@ -1,6 +1,6 @@
 ---
 title: "Using AWS KMS with Laravel"
-date: "2021-03-11T23:34:06.147Z"
+date: "2021-03-12T23:13:06.147Z"
 description: Swapping Laravel Encrypter with AWS KMS 
 ---
 
