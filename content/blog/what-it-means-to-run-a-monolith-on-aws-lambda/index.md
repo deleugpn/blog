@@ -288,7 +288,7 @@ all of its weaknesses will be targeted and brought down. In the
 meantime we can still make use of its fantastic elasticity
 and capabilities by making small tweaks and adjustments to
 the software deployment process so that we can combine great
-tools and knowledge available for ages while creating an
+tools and proven knowledge while creating an
 ecosystem that will easily scale for the needs of the business
 that will exist within the next 5~10 years. The next generation
 of developers will surely look down at all of the "legacy" I'll
