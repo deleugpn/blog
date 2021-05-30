@@ -261,7 +261,7 @@ software engineers that will still be good / great at their
 jobs without being interested in infrastructure, be it servers,
 load balancers, cloud, serverless or anything in between.
 But onboarding engineers with extensive experience in cloud native
-applications is not something that be taken lightly. Even though
+applications is not something that can be taken lightly. Its hard. Even though
 AWS Lambda is already 7 years old it has drastically changed / evolved
 since its inception. It's a new paradigm that is constantly 
 growing and adapting. In the meantime, there's this known
