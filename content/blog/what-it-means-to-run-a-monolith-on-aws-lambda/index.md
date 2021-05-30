@@ -240,8 +240,8 @@ This one is a lost cause. A single source code repository
 ties the deployment process into a single unit. It's often
 hard - or sometimes even impossible - to decouple things
 that are ready for release from things that are not ready
-for release if two or more major work is started and in parallel
-and both has been merged into the staging branch for QA.
+for release if two or more major work has started in parallel
+and both have been merged into the staging branch for QA.
 Feature flags and keeping features small and releasable
 can mitigate, but the winning score goes to separated services
 on this subject. However, it's important to pay attention
