@@ -14,8 +14,8 @@ A single source code repository worked by a team of more than one
 person that aggregate many business features sometimes not related
 to one another and deployed as a single artifact. Something that
 10 years from now may be seen as a legacy monstrosity by a different
-team in a different era, but that today is a live system well
-maintained and (pardon my biased) well maintained.
+team in a different era, but that today is a live system
+and (pardon my biased) well maintained.
 
 > This post will detail my personal view of many things in
 > the software development process. I am in no way looking
@@ -28,7 +28,7 @@ maintained and (pardon my biased) well maintained.
 Simplicity. I can't put it into better words. I'm looking for
 the most efficient way for a complete journey of my job: 
 understand, implement, test, release and guarantee continuity
-of the service. For the last 50 years the industry gathered
+of a feature. For the last 50 years the industry gathered
 a lot of knowledge on how to do all of these things and serverless
 is the most recent paradigm shift. It mainly targets the 
 "guarantee continuity" step of a software-based company. But
@@ -272,7 +272,7 @@ Releasing that behind AWS Lambda not only provides a cheap
 "hosting" solution, but it also comes with nullable maintenance
 overhead in terms of operating system, scalability and security
 patches. With millisecond billing and improved network capabilities
-that brought code start down drastically, AWS Lambda saves a lot
+that brought cold start down drastically, AWS Lambda saves a lot
 on system management and scalability tuning without affecting
 the hiring practices and reducing the pool of professionals
 available in the market. 
