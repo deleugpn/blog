@@ -81,7 +81,7 @@ However, this does not have to be sacrificed when working with
 a monolith / macroservice. We may still deploy a subset of our
 API endpoints into one AWS Lambda with e.g. 1536MB of RAM while
 another subset of API endpoints are in another Lambda with just 
-512MB of RAM and to finalize our background worker may still be
+512MB of RAM and lastly our background worker may still be
 another Lambda with yet a different configuration. But for simplicity,
 all 3 Lambda functions have the entire codebase loaded. Yes, this
 mean that cold start is slightly worst for "no good reason", meaning
