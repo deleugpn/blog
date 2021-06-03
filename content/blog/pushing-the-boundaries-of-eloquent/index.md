@@ -105,7 +105,7 @@ GROUP BY `period`
 This essentially represents a monthly trend. However, MySQL will
 not fill in the gaps. Let's say we're looking into a 3 year
 period, which represents 36 points in a line chart. If there
-are any months which no reports were opened, MySQL will not
+are any months which no tickets were opened, MySQL will not
 provide those rows, so the dataset will not be continuous.
 In this particular case, we actually want to plot that 0
 tickets were opened if there were any months with no new opened
