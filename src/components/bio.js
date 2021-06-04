@@ -62,7 +62,7 @@ const Bio = () => {
       />
       <p>
         <strong>{author}</strong><br />
-        Writing bad code for {`(new Date()).getFullYear() - 2010`} years. Passionate about Laravel and AWS.
+        Writing bad code for {(new Date()).getFullYear() - 2010} years. Passionate about Laravel and AWS.
         {` `}
         <a href={`https://twitter.com/${social.twitter}`}>
           <Image alt="twitter" fixed={data.twitter.childImageSharp.fixed} />
