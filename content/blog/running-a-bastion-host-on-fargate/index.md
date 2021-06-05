@@ -4,6 +4,10 @@ date: "2020-02-07T09:13:15.284Z"
 description: Getting rid of EC2 instances even for SSH tunneling 
 ---
 
+> Check out https://port7777.com, a product that was born out of
+> this post! It's cheap and will setup everything you need to
+> connect to your RDS from your local machine.
+
 Where I work we strive to keep long-term maintenance burden as 
 small as possible. We're a small team that sells SaaS to enterprise-grade
 companies. Some of these very large brand names only sign a SaaS
