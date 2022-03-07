@@ -67,7 +67,7 @@ during my work on Bref is because we attempt to make the Runtime as minimal as p
 AWS Lambda 250MB limit. Every file we pull in adds an overhead. Things like instruction / man files, HTML
 or documentation are not necessary. We only need to pull into the layer the PHP binary, every dependency
 of the PHP Binary and every dependency of the `so` files as well as the extensions itself.
-Only copying `pgsql.so` is not enough as when that code runs it may crash by making a call to ther
+Only copying `pgsql.so` is not enough as when that code runs it may crash by making a call to the
 shared libraries.
 
 #### The more dependencies we have, the harder it is to orchestrate them
@@ -95,7 +95,8 @@ into conditional execution.
 The requirement to publish layers on all region means we can't just upload the zip file to S3 once
 and cross-publish it on all regions. We must actually upload the same content over and over again. This
 limitation stumble on a potential network limitation because trying to upload the same file to 20+ AWS
-regions often leads to a network error.
+regions in parallel (all at once) often leads to a network error.
+
 Speaking of dependencies, we could not leave Composer out of the conversation. Composer does not accept
 one GitHub Repository to host multiple packages so separating the Runtime code from the Bref Package is
 something that must be orchestrated within the code itself. There is also a direct dependency between
@@ -107,6 +108,7 @@ version number is not an option because sometimes 1 AWS region fails to receive 
 Versions cannot be overwritten. Even if the process was perfect and would never fail, it is still possible
 for AWS to launch a new AWS Region and the first layer version there would be out-of-sync with other
 regions.
+
 Preparing 3 PHP versions and publishing 2 layers (function and fpm) results in 6 layers that must be uploaded.
 This can be a slow process and parallelization could help speed things up at yet another dependency cost.
 Makefile is something available on anybody's computer and extremely versatile, but at the same time
