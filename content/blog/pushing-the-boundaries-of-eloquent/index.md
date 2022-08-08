@@ -8,7 +8,7 @@ description: My experience building advanced reporting with Eloquent
 >
 > Part 1: [Dynamic Page Size](https://blog.deleu.dev/laravel-report-dynamic-page-size/).
 >
-> Part 2: [User Defined Sorting](https://blog.deleu.dev/laravel-report-dynamic-page-size/).
+> Part 2: [User Defined Sorting](https://blog.deleu.dev/laravel-report-user-defined-sorting/).
 https://blog.deleu.dev/laravel-report-date-range/
 >
 > Part 3: [Laravel Report: Date Range](https://blog.deleu.dev/laravel-report-date-range/)
