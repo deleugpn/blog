@@ -8,7 +8,7 @@ description: Applying Date Range on Reporting queries
 > 
 > Part 1: [Dynamic Page Size](https://blog.deleu.dev/laravel-report-dynamic-page-size/).
 > 
-> Part 2: [User Defined Sorting](https://blog.deleu.dev/laravel-report-dynamic-page-size/).
+> Part 2: [User Defined Sorting](https://blog.deleu.dev/laravel-report-user-defined-sorting/).
 
 Nowadays it's very common to have more data than you can
 actually act on. Filtering is a natural part of reporting.
