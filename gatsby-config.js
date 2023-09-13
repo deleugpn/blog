@@ -9,15 +9,15 @@
  */
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Starter Blog`,
+    title: `chmod 755`,
     author: {
-      name: `Kyle Mathews`,
-      summary: `who lives and works in San Francisco building useful things.`,
+      name: `Marco Deleu`,
+      summary: `This is where I talk about PHP, Laravel, AWS and shit.`,
     },
-    description: `A starter blog demonstrating what Gatsby can do.`,
-    siteUrl: `https://gatsbystarterblogsource.gatsbyjs.io/`,
+    description: `Building stuff with AWS, Laravel and now Vue`,
+    siteUrl: `https://blog.deleu.dev/`,
     social: {
-      twitter: `kylemathews`,
+      twitter: `deleugyn`,
     },
   },
   plugins: [
@@ -110,8 +110,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Gatsby Starter Blog`,
-        short_name: `Gatsby`,
+        name: `chmod 755`,
+        short_name: `blog.deleu.dev`,
         start_url: `/`,
         background_color: `#ffffff`,
         // This will impact how browsers show your PWA/website

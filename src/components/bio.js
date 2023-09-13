@@ -44,10 +44,11 @@ const Bio = () => {
       />
       {author?.name && (
         <p>
-          Written by <strong>{author.name}</strong> {author?.summary || null}
+          <strong>{author.name}</strong><br />
+          Writing bad code for {(new Date()).getFullYear() - 2010} years. Passionate about Laravel and AWS.
           {` `}
           <a href={`https://twitter.com/${social?.twitter || ``}`}>
-            You should follow them on Twitter
+              <StaticImage src="./../images/twitter.png" alt="" style={{ width: 24, height: 24 }}  />
           </a>
         </p>
       )}
