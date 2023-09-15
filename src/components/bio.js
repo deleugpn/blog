@@ -43,14 +43,14 @@ const Bio = () => {
         alt="Profile picture"
       />
       {author?.name && (
-        <p>
+        <div>
           <strong>{author.name}</strong><br />
           Writing bad code for {(new Date()).getFullYear() - 2010} years. Passionate about Laravel and AWS.
           {` `}
           <a href={`https://twitter.com/${social?.twitter || ``}`}>
               <StaticImage src="./../images/twitter.png" alt="" style={{ width: 24, height: 24 }}  />
           </a>
-        </p>
+        </div>
       )}
     </div>
   )
