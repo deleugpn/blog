@@ -1,6 +1,6 @@
 ---
 title: The requested module does not provide an export named
-date: "2013-10-05T21:10:32.017Z"
+date: "2023-10-05T21:10:32.017Z"
 description: Annoying and hard to debug issue with Vue and Inertia
 ---
 
