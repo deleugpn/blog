@@ -87,9 +87,8 @@ is exactly the same.
 
 One very important information: it works on the browser. If I open
 my form, HighlightJS is working perfectly as intended. No error, no
-weird behaviors, nothing. So I started a question on trying to figure
-out what are the differences between opening the browser and running
-the test.
+weird behaviors, nothing. So I started to dig into what are the
+differences between opening the browser and running the test.
 
 I stumbled upon this link: https://stackoverflow.com/questions/72587750/referenceerror-vue-is-not-defined-vuejs3-jest-testing-library-vue-and-jest.
 The issue quite match what I was facing, but the solution involved some
@@ -98,7 +97,7 @@ to figure out if I could replicate that configuration on Vitest
 or if it had soemthing to do with `jsdom`, but no luck on that
 front.
 
-#### [Appendix] The side quest problem 
+#### [Appendix] The side problem 
 
 As a good PHP developer, I decided to put some `console.log()` inside
 the node_modules folder where the error was happening. Unfortunately
