@@ -255,8 +255,8 @@ another day.
 
 Share your thoughts with me:
 
-https://twitter.com/deleugyn
-https://fosstodon.org/@deleugpn
-https://www.threads.net/@marcodeleu
+- https://twitter.com/deleugyn
+- https://fosstodon.org/@deleugpn
+- https://threads.net/@marcodeleu
 
 Cheers.
