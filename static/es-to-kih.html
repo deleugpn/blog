@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema Supermercado - Mockup</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    /* Barra de rolagem personalizada */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #f1f1f1; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+    /* Efeito de cursor piscando para o status do leitor */
+    .scanner-blink { animation: blink 1.5s infinite; }
+    @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+  </style>
+</head>
+<body class="bg-slate-100 font-sans text-slate-800 h-screen flex overflow-hidden">
+
+<aside class="w-20 bg-slate-900 flex flex-col items-center py-6 shadow-xl z-20">
+  <div class="mb-8 text-white text-2xl"><i class="fa-solid fa-basket-shopping"></i></div>
+
+  <nav class="flex-1 w-full space-y-4">
+    <button onclick="switchView('pos')" id="btn-pos" class="w-full py-4 text-emerald-400 border-l-4 border-emerald-400 bg-slate-800 transition-all hover:bg-slate-800" title="Caixa / PDV">
+      <i class="fa-solid fa-cash-register text-xl"></i>
+    </button>
+    <button onclick="switchView('inventory')" id="btn-inventory" class="w-full py-4 text-slate-400 hover:text-white transition-all hover:bg-slate-800" title="Estoque">
+      <i class="fa-solid fa-box-open text-xl"></i>
+    </button>
+  </nav>
+
+  <div class="mb-4">
+    <div class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center text-white font-bold text-xs">JD</div>
+  </div>
+</aside>
+
+<main class="flex-1 relative">
+
+  <div id="view-pos" class="absolute inset-0 flex flex-col h-full">
+    <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 shadow-sm">
+      <div class="flex items-center gap-3">
+                    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-sm font-semibold border border-emerald-200 scanner-blink">
+                        <i class="fa-solid fa-barcode"></i> Leitor Pronto
+                    </span>
+        <span class="text-slate-400 text-sm">Term: #042</span>
+      </div>
+      <div class="text-slate-500 font-medium text-sm">
+        <span class="bg-slate-100 px-2 py-1 rounded border border-slate-200 mr-2">F1 Buscar</span>
+        <span class="bg-slate-100 px-2 py-1 rounded border border-slate-200 mr-2">F5 Espera</span>
+        <span class="bg-slate-100 px-2 py-1 rounded border border-slate-200">ESC Cancelar</span>
+      </div>
+    </header>
+
+    <div class="flex flex-1 overflow-hidden">
+      <div class="flex-1 bg-white p-6 flex flex-col overflow-hidden">
+        <div class="grid grid-cols-12 gap-4 text-xs font-bold text-slate-400 uppercase mb-3 px-4">
+          <div class="col-span-1">#</div>
+          <div class="col-span-6">Produto</div>
+          <div class="col-span-2 text-right">Qtd</div>
+          <div class="col-span-3 text-right">Preço</div>
+        </div>
+
+        <div class="flex-1 overflow-y-auto space-y-1 pr-2">
+          <div class="grid grid-cols-12 gap-4 items-center bg-slate-50 p-4 rounded-lg border border-slate-100 hover:border-emerald-200 transition-colors">
+            <div class="col-span-1 text-slate-400 font-mono">1</div>
+            <div class="col-span-6">
+              <div class="font-bold text-slate-700 text-lg">Banana Prata Orgânica</div>
+              <div class="text-xs text-slate-400">#4011 • Hortifruti</div>
+            </div>
+            <div class="col-span-2 text-right font-mono text-lg">1,2 <span class="text-xs text-slate-400">kg</span></div>
+            <div class="col-span-3 text-right font-bold text-slate-700 text-lg">R$ 4,50</div>
+          </div>
+
+          <div class="grid grid-cols-12 gap-4 items-center bg-slate-50 p-4 rounded-lg border border-slate-100 hover:border-emerald-200 transition-colors">
+            <div class="col-span-1 text-slate-400 font-mono">2</div>
+            <div class="col-span-6">
+              <div class="font-bold text-slate-700 text-lg">Leite de Aveia Barista</div>
+              <div class="text-xs text-slate-400">#88291 • Laticínios/Veg</div>
+            </div>
+            <div class="col-span-2 text-right font-mono text-lg">2</div>
+            <div class="col-span-3 text-right font-bold text-slate-700 text-lg">R$ 18,90</div>
+          </div>
+
+          <div class="grid grid-cols-12 gap-4 items-center bg-emerald-50 p-4 rounded-lg border-2 border-emerald-400 shadow-sm relative">
+            <div class="absolute -right-1 -top-1 w-3 h-3 bg-emerald-500 rounded-full animate-ping"></div>
+            <div class="col-span-1 text-emerald-600 font-mono">3</div>
+            <div class="col-span-6">
+              <div class="font-bold text-slate-800 text-lg">Pão Artesanal Italiano</div>
+              <div class="text-xs text-emerald-600">#1022 • Padaria</div>
+            </div>
+            <div class="col-span-2 text-right font-mono text-lg font-bold">1</div>
+            <div class="col-span-3 text-right font-bold text-slate-800 text-lg">R$ 8,50</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-96 bg-slate-50 border-l border-slate-200 flex flex-col p-6 shadow-inner z-10">
+
+        <div class="mb-6">
+          <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Entrada Manual / Busca</label>
+          <div class="relative">
+            <input type="text" placeholder="Digite SKU ou Nome" class="w-full bg-white border border-slate-300 text-slate-800 text-lg rounded-lg p-3 pl-10 focus:outline-none focus:ring-2 focus:ring-emerald-500 shadow-sm">
+            <i class="fa-solid fa-magnifying-glass absolute left-3 top-4 text-slate-400"></i>
+          </div>
+        </div>
+
+        <div class="flex-1 space-y-3 border-t border-slate-200 pt-6">
+          <div class="flex justify-between text-slate-500">
+            <span>Subtotal</span>
+            <span>R$ 31,90</span>
+          </div>
+          <div class="flex justify-between text-slate-500">
+            <span>Impostos (Aprox.)</span>
+            <span>R$ 2,45</span>
+          </div>
+          <div class="flex justify-between text-emerald-600 font-medium">
+            <span>Desconto</span>
+            <span>-R$ 0,00</span>
+          </div>
+        </div>
+
+        <div class="mt-6 mb-6">
+          <div class="text-right">
+            <span class="block text-sm text-slate-400 font-medium uppercase tracking-wider">Total a Pagar</span>
+            <span class="block text-5xl font-extrabold text-slate-800 tracking-tight">R$ 31,90</span>
+          </div>
+        </div>
+
+        <button class="w-full bg-emerald-600 hover:bg-emerald-700 text-white h-20 rounded-xl text-2xl font-bold shadow-lg shadow-emerald-200 transform transition active:scale-95 flex items-center justify-between px-6 group">
+          <span>Finalizar</span>
+          <span class="bg-emerald-800 text-emerald-200 text-sm px-2 py-1 rounded group-hover:bg-emerald-900">ESPAÇO</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="view-inventory" class="hidden absolute inset-0 flex flex-col h-full bg-slate-50">
+    <header class="bg-white border-b border-slate-200 px-8 py-6 flex items-center justify-between">
+      <div>
+        <h1 class="text-2xl font-bold text-slate-800">Importação em Massa</h1>
+        <p class="text-slate-500 mt-1">Carregue notas fiscais (XML/CSV) para atualizar o estoque.</p>
+      </div>
+      <div class="flex gap-3">
+        <button class="px-4 py-2 text-slate-600 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 font-medium">Baixar Modelo</button>
+        <button onclick="toggleImportState()" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium shadow-sm">
+          <i class="fa-solid fa-cloud-arrow-up mr-2"></i> Carregar Arquivo
+        </button>
+      </div>
+    </header>
+
+    <div class="flex-1 overflow-hidden flex flex-col px-8 py-6">
+
+      <div class="flex gap-6 mb-6">
+        <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200 flex-1 flex items-center gap-4">
+          <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-green-600 text-xl"><i class="fa-solid fa-rotate"></i></div>
+          <div>
+            <div class="text-2xl font-bold text-slate-800">42</div>
+            <div class="text-xs text-slate-500 uppercase font-bold tracking-wider">Atualizações de Estoque</div>
+          </div>
+        </div>
+        <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-yellow-400 flex-1 flex items-center gap-4">
+          <div class="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-600 text-xl"><i class="fa-solid fa-plus"></i></div>
+          <div>
+            <div class="text-2xl font-bold text-slate-800">3</div>
+            <div class="text-xs text-slate-500 uppercase font-bold tracking-wider">Novos Produtos</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl shadow-sm border border-slate-200 flex-1 flex flex-col overflow-hidden">
+        <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+          <h3 class="font-bold text-slate-700">Revisar Alterações: <span class="font-normal text-slate-500">nfe_entrada_set_24.xml</span></h3>
+          <span class="text-sm text-slate-400">45 Linhas encontradas</span>
+        </div>
+
+        <div class="flex-1 overflow-auto">
+          <table class="w-full text-left border-collapse">
+            <thead class="bg-slate-50 sticky top-0 z-10">
+            <tr>
+              <th class="p-4 text-xs font-bold text-slate-500 uppercase border-b border-slate-200">Status</th>
+              <th class="p-4 text-xs font-bold text-slate-500 uppercase border-b border-slate-200">SKU</th>
+              <th class="p-4 text-xs font-bold text-slate-500 uppercase border-b border-slate-200">Produto</th>
+              <th class="p-4 text-xs font-bold text-slate-500 uppercase border-b border-slate-200 text-right">Atual</th>
+              <th class="p-4 text-xs font-bold text-slate-500 uppercase border-b border-slate-200 text-right text-blue-600">+ Entrada</th>
+              <th class="p-4 text-xs font-bold text-slate-500 uppercase border-b border-slate-200 text-right">Novo Total</th>
+            </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+            <tr class="hover:bg-slate-50 group">
+              <td class="p-4">
+                                        <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-700">
+                                            Atualizar
+                                        </span>
+              </td>
+              <td class="p-4 text-slate-500 font-mono text-sm">883921</td>
+              <td class="p-4 font-medium text-slate-700">Ketchup Heinz 500ml</td>
+              <td class="p-4 text-right text-slate-500">12</td>
+              <td class="p-4 text-right font-bold text-blue-600 bg-blue-50">+24</td>
+              <td class="p-4 text-right font-bold text-slate-800">36</td>
+            </tr>
+
+            <tr class="bg-yellow-50/50 hover:bg-yellow-50 border-l-4 border-yellow-400">
+              <td class="p-4">
+                                        <span class="inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-medium bg-yellow-100 text-yellow-700">
+                                            <i class="fa-solid fa-star"></i> Novo
+                                        </span>
+              </td>
+              <td class="p-4 text-slate-500 font-mono text-sm">992100</td>
+              <td class="p-4">
+                <div class="font-medium text-slate-800">Chutney de Manga Picante</div>
+                <div class="text-xs text-red-500 mt-1">Faltando Categoria e Preço de Venda</div>
+              </td>
+              <td class="p-4 text-right text-slate-400">-</td>
+              <td class="p-4 text-right font-bold text-blue-600">+10</td>
+              <td class="p-4 text-right font-bold text-slate-800">10</td>
+            </tr>
+
+            <tr class="hover:bg-slate-50 group">
+              <td class="p-4">
+                                        <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-700">
+                                            Atualizar
+                                        </span>
+              </td>
+              <td class="p-4 text-slate-500 font-mono text-sm">110293</td>
+              <td class="p-4 font-medium text-slate-700">Coca Cola 1.5L</td>
+              <td class="p-4 text-right text-slate-500">4</td>
+              <td class="p-4 text-right font-bold text-blue-600 bg-blue-50">+50</td>
+              <td class="p-4 text-right font-bold text-slate-800">54</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="p-4 border-t border-slate-200 bg-slate-50 flex justify-end gap-3">
+          <button class="px-6 py-3 text-slate-600 hover:text-slate-800 font-medium">Cancelar</button>
+          <button class="px-6 py-3 bg-slate-900 text-white rounded-lg hover:bg-black font-bold shadow-lg flex items-center gap-2">
+            Confirmar Importação (45) <i class="fa-solid fa-check"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  function switchView(viewName) {
+    // Esconder todas as views
+    document.getElementById('view-pos').classList.add('hidden');
+    document.getElementById('view-inventory').classList.add('hidden');
+
+    // Resetar estilos da Sidebar
+    document.getElementById('btn-pos').className = "w-full py-4 text-slate-400 hover:text-white transition-all hover:bg-slate-800";
+    document.getElementById('btn-inventory').className = "w-full py-4 text-slate-400 hover:text-white transition-all hover:bg-slate-800";
+
+    // Mostrar view selecionada e destacar ícone
+    if(viewName === 'pos') {
+      document.getElementById('view-pos').classList.remove('hidden');
+      document.getElementById('btn-pos').className = "w-full py-4 text-emerald-400 border-l-4 border-emerald-400 bg-slate-800 transition-all hover:bg-slate-800";
+    } else {
+      document.getElementById('view-inventory').classList.remove('hidden');
+      document.getElementById('btn-inventory').className = "w-full py-4 text-blue-400 border-l-4 border-blue-400 bg-slate-800 transition-all hover:bg-slate-800";
+    }
+  }
+</script>
+</body>
+</html>
