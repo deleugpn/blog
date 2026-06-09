@@ -12,10 +12,37 @@
   body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
   .chart-container { position: relative; height: 380px; width: 100%; }
   @media print {
-    body { background: white !important; }
+    @page {
+      size: A4 portrait;
+      margin: 15mm 12mm;
+    }
+    html, body {
+      background: white !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      color-adjust: exact !important;
+    }
     .no-print { display: none !important; }
-    .chart-container { height: 300px; page-break-inside: avoid; }
-    section { page-break-inside: avoid; }
+    /* Keep chart container height SAME as screen to avoid Chart.js resize timing issues. */
+    /* Sections shouldn't break across pages. */
+    section {
+      break-inside: avoid !important;
+      page-break-inside: avoid !important;
+      margin-bottom: 1rem !important;
+    }
+    /* Slightly tighter padding for print */
+    .p-5 { padding: 1rem !important; }
+    /* Adjust fonts for print */
+    h1 { font-size: 16pt !important; }
+    h2 { font-size: 11pt !important; }
+    .text-base { font-size: 11pt !important; }
+    .text-sm { font-size: 9pt !important; }
+    .text-xs { font-size: 8pt !important; }
+    /* Preserve background colors of cards and chart fills */
+    .bg-rose-50, .bg-blue-50, .bg-emerald-50, .bg-slate-50, .bg-white {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
   }
 </style>
 </head>
@@ -28,9 +55,10 @@
       <div>
         <h1 class="text-2xl md:text-3xl font-semibold tracking-tight">Evolução dos Trigêmeos</h1>
         <p class="text-sm text-slate-600 mt-1">
-          Paciente: <strong>Jackelyne Kellen Ferreira</strong> · Gestação tricoriônica triamniótica · 13 exames de 11/02 a 03/06/2026
+          Paciente: <strong>Jackelyne Kellen Ferreira</strong> · Gestação tricoriônica triamniótica · 14 exames de 11/02 a 09/06/2026
         </p>
       </div>
+      <button onclick="window.print()" class="no-print text-xs px-3 py-1.5 border border-slate-300 rounded hover:bg-slate-100 transition">Imprimir / Salvar PDF</button>
     </div>
   </header>
 
@@ -122,16 +150,16 @@
     <h2 class="text-base font-semibold mb-3">Observações principais</h2>
     <div class="grid md:grid-cols-2 gap-3 text-sm text-slate-700">
       <div class="p-3 rounded-lg" style="background:rgba(212,83,126,0.08); border:1px solid rgba(212,83,126,0.25)">
-        <strong style="color:#D4537E">Laura</strong>: pequena e <em>estável</em>. Desde 31/03, percentil entre P4 e P16. CA e CF crescem em ritmo proporcional ao peso, sem desaceleração visível. Curva paralela aos irmãos — Doppler normal em todos os exames recentes.
+        <strong style="color:#D4537E">Laura</strong>: pequena e <em>estável</em>. Desde 31/03, percentil entre P4 e P16, agora em P5 (09/06). CA e CF crescem em ritmo proporcional ao peso, sem desaceleração visível. Curva paralela aos irmãos — Doppler normal em todos os exames recentes (incluindo ducto venoso normal em 09/06).
       </div>
       <div class="p-3 rounded-lg" style="background:rgba(24,95,165,0.08); border:1px solid rgba(24,95,165,0.25)">
-        <strong style="color:#185FA5">Erik</strong>: maior dos três nos últimos exames. Recuperou do percentil baixo de 31/03 (P8) e estabilizou em P14–P25. Crescimento mais robusto e consistente. Apenas atenção ao maior bolsão amniótico em 26/05 (2,37 cm — limite inferior do normal).
+        <strong style="color:#185FA5">Erik</strong>: maior dos três e o que cresce de forma mais robusta. Recuperou do percentil baixo de 31/03 (P8) e estabilizou em P14–P25, agora P20 em 09/06. Maior bolsão amniótico em 26/05 era 2,37 cm — subiu para 2,58 cm em 09/06, ainda no limite inferior do normal mas em direção positiva.
       </div>
       <div class="p-3 rounded-lg" style="background:rgba(29,158,117,0.08); border:1px solid rgba(29,158,117,0.25)">
-        <strong style="color:#1D9E75">Felipe</strong>: oscilação maior no percentil ao longo da gestação. P3 no último exame (03/06) é o menor já registrado dele. CF cresceu apenas 0 mm entre 26/05 e 03/06 (mantida em 56 mm). Vale conversar com a obstetra sobre o ritmo de crescimento.
+        <strong style="color:#1D9E75">Felipe</strong>: oscilação maior no percentil ao longo da gestação. Atingiu P3 em 03/06 (menor já registrado dele) e voltou a P6 em 09/06 — leve recuperação. CF estagnou em 56 mm entre 26/05 e 03/06 mas voltou a crescer (57,1 mm em 09/06). Doppler normal no exame mais recente. Vale acompanhar de perto o ritmo de crescimento.
       </div>
       <div class="p-3 rounded-lg bg-slate-50 border border-slate-200">
-        <strong class="text-slate-900">Conjunto</strong>: discordância sempre abaixo de 17% (limite preocupante: 20%). Os 3 bebês mantiveram crescimento paralelo. Doppler de artérias umbilical e cerebral média normais nos últimos exames das duas clínicas.
+        <strong class="text-slate-900">Conjunto</strong>: discordância sempre abaixo de 17% (limite preocupante: 20%) — 11,2% em 09/06. Os 3 bebês mantiveram crescimento paralelo. Doppler de artérias umbilical, cerebral média e ducto venoso normais nos exames mais recentes das duas clínicas.
       </div>
     </div>
   </section>
@@ -158,6 +186,7 @@ const EXAMS = [
   { date: '2026-05-12', clinic: 'Humana', ig: '30s 2d' },
   { date: '2026-05-26', clinic: 'Humana', ig: '32s 2d' },
   { date: '2026-06-03', clinic: 'Aline',  ig: '33s 3d' },
+  { date: '2026-06-09', clinic: 'Humana', ig: '34s 2d' },
 ];
 
 // Aligned 1:1 with EXAMS — values per baby per metric
@@ -176,6 +205,7 @@ const DATA = {
     { weight: 1229, percentile: 4,    cf: 55.0, ca: 234, bcf: 150 },
     { weight: 1658, percentile: 8,    cf: 59.0, ca: 272, bcf: 149 },
     { weight: 1808, percentile: 9,    cf: 61.8, ca: 269, bcf: 142 },
+    { weight: 1941, percentile: 5,    cf: 62.5, ca: 283, bcf: 137 },
   ],
   erik: [
     { weight: 200,  percentile: 53,   cf: 26.0, ca: 115, bcf: 142 },
@@ -191,6 +221,7 @@ const DATA = {
     { weight: 1472, percentile: 25,   cf: 55.0, ca: 259, bcf: 148 },
     { weight: 1841, percentile: 24,   cf: 59.0, ca: 280, bcf: 135 },
     { weight: 1927, percentile: 14,   cf: 59.0, ca: 287, bcf: 152 },
+    { weight: 2187, percentile: 20,   cf: 63.4, ca: 295, bcf: 142 },
   ],
   felipe: [
     { weight: 174,  percentile: 18,   cf: 22.0, ca: 113, bcf: 153 },
@@ -206,6 +237,7 @@ const DATA = {
     { weight: 1356, percentile: 11,   cf: 52.1, ca: 256, bcf: 137 },
     { weight: 1616, percentile: 7,    cf: 56.0, ca: 270, bcf: 146 },
     { weight: 1728, percentile: 3,    cf: 56.0, ca: 279, bcf: 157 }, // Felipe P3 (correção)
+    { weight: 1950, percentile: 6,    cf: 57.1, ca: 291, bcf: 145 },
   ],
 };
 
@@ -517,6 +549,33 @@ new Chart(document.getElementById('chart-discord'), {
     }
   })
 });
+
+// =========== PRINT HANDLING ===========
+// The chart container width changes between screen (~1100px) and A4 print (~700px).
+// Chart.js's internal ResizeObserver doesn't always fire in time for the print snapshot,
+// so we manually call resize() when the print media query activates.
+function resizeAllCharts() {
+  if (typeof Chart === 'undefined' || !Chart.instances) return;
+  Object.values(Chart.instances).forEach(chart => {
+    try { chart.resize(); } catch (e) { /* ignore */ }
+  });
+}
+
+// matchMedia 'change' fires AFTER the media query state flips,
+// meaning the print CSS is already applied and container dimensions are updated.
+// This is more reliable than 'beforeprint' which fires before CSS application in some browsers.
+if (window.matchMedia) {
+  const printMQ = window.matchMedia('print');
+  if (printMQ.addEventListener) {
+    printMQ.addEventListener('change', resizeAllCharts);
+  } else if (printMQ.addListener) {
+    printMQ.addListener(resizeAllCharts); // older Safari
+  }
+}
+
+// Fallback for browsers that don't trigger matchMedia 'change' for print
+window.addEventListener('beforeprint', resizeAllCharts);
+window.addEventListener('afterprint', resizeAllCharts);
 </script>
 </body>
 </html>
