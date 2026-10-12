@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Laura — exames laboratoriais</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#f4f6f5; --panel:#ffffff; --ink:#1b262a; --muted:#5f6f74; --line:#d9e0e0; --line-strong:#b9c5c6;
+  --head:#e9eeed; --accent:#1e6f8e; --up:#8a3b6f; --down:#1f7a66; --flag:#b8731a; --chip:#e4ebea;
+  --font:"IBM Plex Sans",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#131b1e; --panel:#1a2428; --ink:#e6ecee; --muted:#93a4aa; --line:#2b383d; --line-strong:#3c4c52;
+    --head:#202c31; --accent:#6fb6d3; --up:#d58ab8; --down:#5fc4a9; --flag:#e0a456; --chip:#263237;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#131b1e; --panel:#1a2428; --ink:#e6ecee; --muted:#93a4aa; --line:#2b383d; --line-strong:#3c4c52;
+  --head:#202c31; --accent:#6fb6d3; --up:#d58ab8; --down:#5fc4a9; --flag:#e0a456; --chip:#263237;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:14px;line-height:1.45;font-variant-numeric:tabular-nums}
+header{padding:22px 20px 10px;max-width:1400px;margin:0 auto}
+h1{font-size:20px;font-weight:600;margin:0 0 4px}
+.sub{color:var(--muted);margin:0 0 14px;font-size:13px}
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.controls input[type=search]{font:inherit;padding:7px 10px;border:1px solid var(--line-strong);border-radius:6px;background:var(--panel);color:var(--ink);min-width:220px}
+.controls input[type=search]:focus{outline:2px solid var(--accent);outline-offset:1px}
+.chip{font:inherit;font-size:13px;padding:6px 10px;border:1px solid transparent;border-radius:999px;background:var(--chip);color:var(--ink);cursor:pointer}
+.chip[aria-pressed=true]{background:var(--accent);color:#fff}
+.chip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+label.tog{display:inline-flex;align-items:center;gap:6px;color:var(--muted);font-size:13px;cursor:pointer;margin-left:4px}
+.wrap{max-width:1400px;margin:0 auto;padding:0 20px 40px}
+.scroller{overflow:auto;border:1px solid var(--line);border-radius:8px;background:var(--panel);max-height:calc(100dvh - 200px)}
+.scroller+h2,.legend+h2{margin-top:26px}
+h2{font-size:15px;font-weight:600;margin:0 0 8px}
+h2 span{color:var(--muted);font-weight:400;font-size:13px;margin-left:8px}
+table{border-collapse:separate;border-spacing:0;min-width:100%}
+th,td{padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top;white-space:nowrap}
+thead th{position:sticky;top:0;background:var(--head);z-index:3;text-align:right;font-weight:500}
+thead th:first-child{text-align:left;z-index:4}
+thead th .d{display:block;font-weight:600}
+thead th .t{display:block;color:var(--muted);font-size:12px;font-weight:400}
+td:first-child,th:first-child{position:sticky;left:0;background:var(--panel);z-index:2;border-right:1px solid var(--line)}
+thead th:first-child{background:var(--head)}
+tr.group td{background:var(--head);font-weight:600;padding-top:9px;padding-bottom:5px;position:sticky;left:0}
+tr.group td span{color:var(--muted);font-weight:400;font-size:12px;margin-left:8px}
+td.name{min-width:220px}
+td.name .u{color:var(--muted);font-size:12px;margin-left:6px}
+td.v{text-align:right;min-width:92px}
+td.v .n{font-weight:500}
+td.v .delta{display:block;font-size:11.5px;line-height:1.2;margin-top:1px;color:var(--muted)}
+td.v .delta.up{color:var(--up)} td.v .delta.down{color:var(--down)}
+td.v.q{color:var(--muted)}
+td.v .q-pos{color:var(--flag);font-weight:600}
+td.note{color:var(--muted);font-size:12px;white-space:normal;min-width:180px;max-width:320px}
+tbody tr:hover td{background:color-mix(in srgb,var(--accent) 7%,var(--panel))}
+tbody tr:hover td:first-child{background:color-mix(in srgb,var(--accent) 7%,var(--panel))}
+.empty{padding:24px;color:var(--muted)}
+.legend{color:var(--muted);font-size:12px;margin:10px 2px 0;display:flex;flex-wrap:wrap;gap:14px}
+.legend b{font-weight:500;color:var(--ink)}
+@media (max-width:600px){header{padding:16px 12px 8px}.wrap{padding:0 12px 30px}td.name{min-width:160px}th,td{padding:6px 8px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Laura — exames laboratoriais</h1>
+  <p class="sub">Valores por data de coleta, uma tabela por material (sangue, papel-filtro, urina). Abaixo de cada valor, a variação em relação à medida anterior do mesmo exame. Sem valores de referência nesta versão.</p>
+  <div class="controls" id="controls">
+    <input type="search" id="q" placeholder="Buscar exame (ex.: TGP, plaquetas)" aria-label="Buscar exame">
+    <label class="tog"><input type="checkbox" id="onlyMulti"> só exames com 2+ medidas</label>
+  </div>
+</header>
+<div class="wrap">
+  <div id="sections"></div>
+  <div class="legend">
+    <span><b>▲</b> subiu em relação à medida anterior</span>
+    <span><b>▼</b> desceu</span>
+    <span><b>=</b> igual</span>
+    <span>Colunas vazias: exame não colhido naquela data.</span>
+  </div>
+</div>
+
+<script>
+// ---------- DADOS (edite aqui) ----------
+// Datas de coleta (ISO) e rótulo curto.
+const DATES = [
+  {id:"2026-06-23", label:"23/06", sub:"4 dias · pezinho"},
+  {id:"2026-06-24", label:"24/06", sub:"5 dias"},
+  {id:"2026-09-21", label:"21/09", sub:"3 m · Dra. Kamilla"},
+  {id:"2026-09-28", label:"28/09", sub:"urina"},
+  {id:"2026-09-29", label:"29/09", sub:"3 m · Dra. Tainá"},
+  {id:"2026-10-06", label:"06/10", sub:"urina"},
+  {id:"2026-10-11", label:"11/10", sub:"internação · 21:38"},
+];
+// Cada linha: grupo, nome, unidade, valores por data (número ou texto), nota opcional.
+const ROWS = [
+ // Hematologia
+ {g:"Hematologia", n:"Hemoglobina", u:"g/dL", v:{"2026-09-21":10.4,"2026-09-29":9.8,"2026-10-11":9.5}},
+ {g:"Hematologia", n:"Hematócrito", u:"%", v:{"2026-09-21":29.5,"2026-09-29":29.1,"2026-10-11":26.9}},
+ {g:"Hematologia", n:"Hemácias", u:"10⁶/µL", v:{"2026-09-21":3.52,"2026-09-29":3.28,"2026-10-11":3.2}},
+ {g:"Hematologia", n:"VCM", u:"fL", v:{"2026-09-21":83.8,"2026-09-29":88.7,"2026-10-11":84}},
+ {g:"Hematologia", n:"HCM", u:"pg", v:{"2026-09-21":29.5,"2026-09-29":29.9,"2026-10-11":29.7}},
+ {g:"Hematologia", n:"CHCM", u:"g/dL", v:{"2026-09-21":35.3,"2026-09-29":33.7,"2026-10-11":35.3}},
+ {g:"Hematologia", n:"RDW", u:"%", v:{"2026-09-21":14.6,"2026-09-29":14.5,"2026-10-11":13.2}},
+ {g:"Hematologia", n:"Reticulócitos", u:"%", v:{"2026-09-21":2.8}, note:"98.560/mm³"},
+ {g:"Hematologia", n:"Leucócitos", u:"/mm³", v:{"2026-09-21":6910,"2026-09-29":7050,"2026-10-11":5330}},
+ {g:"Hematologia", n:"Neutrófilos segmentados", u:"/mm³", v:{"2026-09-21":2240,"2026-09-29":1904,"2026-10-11":852}},
+ {g:"Hematologia", n:"Bastonetes", u:"/mm³", v:{"2026-09-21":0,"2026-09-29":71,"2026-10-11":53}},
+ {g:"Hematologia", n:"Linfócitos", u:"/mm³", v:{"2026-09-21":3520,"2026-09-29":3878,"2026-10-11":3518}},
+ {g:"Hematologia", n:"Monócitos", u:"/mm³", v:{"2026-09-21":1000,"2026-09-29":917,"2026-10-11":640}},
+ {g:"Hematologia", n:"Eosinófilos", u:"/mm³", v:{"2026-09-21":130,"2026-09-29":282,"2026-10-11":267}},
+ {g:"Hematologia", n:"Basófilos", u:"/mm³", v:{"2026-09-21":20,"2026-09-29":0,"2026-10-11":0}},
+ {g:"Hematologia", n:"Plaquetas", u:"/mm³", v:{"2026-09-21":659000,"2026-09-29":589000,"2026-10-11":460000}},
+ {g:"Hematologia", n:"VPM", u:"fL", v:{"2026-09-29":10.2,"2026-10-11":10.2}},
+ // Coagulação
+ {g:"Coagulação", n:"TAP (INR)", u:"", v:{"2026-09-21":0.99,"2026-10-11":1.11}, note:"11,4 s"},
+ {g:"Coagulação", n:"TTPA (relação)", u:"", v:{"2026-09-21":1.19,"2026-10-11":1.1}, note:"33,5 s"},
+ // Fígado
+ {g:"Fígado", n:"TGP / ALT", u:"U/L", v:{"2026-09-21":94,"2026-09-29":28,"2026-10-11":31}},
+ {g:"Fígado", n:"TGO / AST", u:"U/L", v:{"2026-09-21":49,"2026-09-29":32,"2026-10-11":40}},
+ {g:"Fígado", n:"Gama-GT", u:"U/L", v:{"2026-09-21":80,"2026-09-29":49,"2026-10-11":29}},
+ {g:"Fígado", n:"Fosfatase alcalina", u:"U/L", v:{"2026-09-21":290,"2026-09-29":196,"2026-10-11":693}, note:"laboratórios diferentes; 11/10 ref. até 644"},
+ {g:"Fígado", n:"Bilirrubina total", u:"mg/dL", v:{"2026-06-24":8.60,"2026-09-21":0.18,"2026-09-29":0.20,"2026-10-11":0.2}},
+ {g:"Fígado", n:"Bilirrubina direta", u:"mg/dL", v:{"2026-06-24":0.36,"2026-09-21":0.10,"2026-09-29":0.06,"2026-10-11":0.01}},
+ {g:"Fígado", n:"Bilirrubina indireta", u:"mg/dL", v:{"2026-06-24":8.24,"2026-09-21":0.08,"2026-09-29":0.14,"2026-10-11":0.19}},
+ {g:"Fígado", n:"Albumina", u:"g/dL", v:{"2026-09-21":4.0,"2026-09-29":4.2,"2026-10-11":4.3}},
+ {g:"Fígado", n:"Globulinas", u:"g/dL", v:{"2026-09-21":1.9,"2026-10-11":1.6}},
+ {g:"Fígado", n:"Proteínas totais", u:"g/dL", v:{"2026-09-21":5.9,"2026-10-11":5.9}},
+ {g:"Fígado", n:"DHL / LDH", u:"U/L", v:{"2026-09-21":279,"2026-09-29":247,"2026-10-11":305}},
+ // Rim e eletrólitos
+ {g:"Rim e eletrólitos", n:"Creatinina", u:"mg/dL", v:{"2026-09-21":0.30,"2026-09-29":0.31,"2026-10-11":0.3}},
+ {g:"Rim e eletrólitos", n:"Ureia", u:"mg/dL", v:{"2026-09-21":6.8,"2026-09-29":7,"2026-10-11":16}},
+ {g:"Rim e eletrólitos", n:"Sódio", u:"mmol/L", v:{"2026-09-21":142,"2026-09-29":138,"2026-10-11":136}},
+ {g:"Rim e eletrólitos", n:"Potássio", u:"mmol/L", v:{"2026-09-21":5.5,"2026-09-29":5.0,"2026-10-11":4.8}},
+ {g:"Rim e eletrólitos", n:"Cloro", u:"mmol/L", v:{"2026-09-29":105}},
+ {g:"Rim e eletrólitos", n:"Cálcio", u:"mg/dL", v:{"2026-09-29":10.4,"2026-10-11":10.3}},
+ {g:"Rim e eletrólitos", n:"Fósforo", u:"mg/dL", v:{"2026-09-29":7.1}},
+ {g:"Rim e eletrólitos", n:"Magnésio", u:"mg/dL", v:{"2026-09-29":2.1,"2026-10-11":1.7}},
+ {g:"Rim e eletrólitos", n:"Ácido úrico", u:"mg/dL", v:{"2026-09-29":3.0}},
+ // Metabólico e inflamatório
+ {g:"Metabólico e inflamatório", n:"Glicose", u:"mg/dL", v:{"2026-09-21":105}},
+ {g:"Metabólico e inflamatório", n:"Ácido lático", u:"mg/dL", v:{"2026-09-29":39.0}, note:"coleta 06:23"},
+ {g:"Metabólico e inflamatório", n:"CK total", u:"U/L", v:{"2026-09-29":86}},
+ {g:"Metabólico e inflamatório", n:"Ferritina", u:"ng/mL", v:{"2026-09-21":114.8}},
+ {g:"Metabólico e inflamatório", n:"PCR", u:"mg/L", v:{"2026-09-21":3.0,"2026-09-29":0.79,"2026-10-11":1.5}, note:"21/09 = limite de detecção do método; 29/09 ultrassensível; 11/10 turbidimetria"},
+ // Tireoide
+ {g:"Tireoide", n:"TSH", u:"µUI/mL", v:{"2026-09-21":0.83,"2026-09-29":1.34}},
+ {m:"papel", g:"Tireoide", n:"TSH neonatal", u:"µU/mL", v:{"2026-06-23":0.18}},
+ {g:"Tireoide", n:"T4 livre", u:"ng/dL", v:{"2026-09-21":1.42,"2026-09-29":1.22}},
+ {m:"papel", g:"Tireoide", n:"T4 neonatal (total)", u:"µg/dL", v:{"2026-06-23":7.30}},
+ // CMV e sorologias
+ {g:"CMV e sorologias", n:"CMV PCR sangue", u:"UI/mL", v:{"2026-09-21":1152}, note:"3,06 log"},
+ {m:"urina", g:"CMV", n:"CMV PCR urina", u:"", v:{"2026-09-28":"detectado","2026-10-06":"detectado"}},
+ {g:"CMV e sorologias", n:"CMV IgG", u:"AU/mL", v:{"2026-09-29":71.23}},
+ {g:"CMV e sorologias", n:"CMV IgM", u:"S/CO", v:{"2026-09-29":1.82}, note:"reagente"},
+ {m:"papel", g:"Sorologias", n:"CMV IgM", u:"", v:{"2026-06-23":"não reagente"}},
+ {g:"CMV e sorologias", n:"Toxoplasmose IgG", u:"UI/mL", v:{"2026-09-21":0.2}, note:"não reagente"},
+ {g:"CMV e sorologias", n:"Toxoplasmose IgM", u:"índice", v:{"2026-09-21":0.05}, note:"não reagente"},
+ {m:"papel", g:"Sorologias", n:"Toxoplasmose IgM", u:"", v:{"2026-06-23":"não reagente"}},
+ {m:"papel", g:"Sorologias", n:"Rubéola IgM", u:"", v:{"2026-06-23":"não reagente"}},
+ {m:"papel", g:"Sorologias", n:"Sífilis", u:"", v:{"2026-06-23":"não reagente"}},
+ {m:"papel", g:"Sorologias", n:"Chagas IgG", u:"", v:{"2026-06-23":"não reagente"}},
+ // Imunidade
+ {m:"papel", g:"Imunidade (triagem)", n:"TREC", u:"cópias/µL", v:{"2026-06-23":32}, note:"papel-filtro; corte > 30"},
+ {m:"papel", g:"Imunidade (triagem)", n:"KREC", u:"cópias/µL", v:{"2026-06-23":184}, note:"papel-filtro"},
+ // Triagem neonatal
+ {m:"papel", g:"Triagem neonatal", n:"IRT (fibrose cística)", u:"ng/mL", v:{"2026-06-23":19.70}},
+ {m:"papel", g:"Triagem neonatal", n:"17-OHP", u:"ng/mL", v:{"2026-06-23":1.80}},
+ {m:"papel", g:"Triagem neonatal", n:"Galactose", u:"mg/dL", v:{"2026-06-23":3.86}},
+ {m:"papel", g:"Triagem neonatal", n:"G6PD", u:"U/gHb", v:{"2026-06-23":6.30}},
+ {m:"papel", g:"Triagem neonatal", n:"Fenilalanina", u:"mg/dL", v:{"2026-06-23":0.9}},
+ {m:"papel", g:"Triagem neonatal", n:"Tirosina", u:"mg/dL", v:{"2026-06-23":1.6}},
+ {m:"papel", g:"Triagem neonatal", n:"Hemoglobinopatias", u:"", v:{"2026-06-23":"FA"}},
+ {m:"papel", g:"Triagem neonatal", n:"Biotinidase", u:"", v:{"2026-06-23":"ativa"}},
+ {m:"papel", g:"Triagem neonatal", n:"Beta-glicosidase (Gaucher)", u:"µmol/L/h", v:{"2026-06-23":14.02}},
+ {m:"papel", g:"Triagem neonatal", n:"Alfa-glicosidase (Pompe)", u:"µmol/L/h", v:{"2026-06-23":5.78}},
+ {m:"papel", g:"Triagem neonatal", n:"Alfa-galactosidase (Fabry)", u:"µmol/L/h", v:{"2026-06-23":27.70}},
+ {m:"papel", g:"Triagem neonatal", n:"Esfingomielinase (Niemann-Pick)", u:"µmol/L/h", v:{"2026-06-23":4.20}},
+ {m:"papel", g:"Triagem neonatal", n:"Galactocerebrosidase (Krabbe)", u:"µmol/L/h", v:{"2026-06-23":18.76}},
+ {m:"papel", g:"Triagem neonatal", n:"Alfa-L-iduronidase (MPS I)", u:"µmol/L/h", v:{"2026-06-23":5.34}},
+ {m:"papel", g:"Triagem neonatal", n:"SMA (deleção SMN1)", u:"", v:{"2026-06-23":"ausente"}},
+ // Aminoácidos plasmáticos
+ {g:"Aminoácidos plasmáticos", n:"Alanina", u:"µmol/L", v:{"2026-09-29":136.8}},
+ {g:"Aminoácidos plasmáticos", n:"Serina", u:"µmol/L", v:{"2026-09-29":44.4}},
+ {g:"Aminoácidos plasmáticos", n:"Glicina", u:"µmol/L", v:{"2026-09-29":119.8}},
+ {g:"Aminoácidos plasmáticos", n:"Prolina + asparagina", u:"µmol/L", v:{"2026-09-29":289.0}},
+ {g:"Aminoácidos plasmáticos", n:"Glutamina + lisina", u:"µmol/L", v:{"2026-09-29":9.4}},
+ {g:"Aminoácidos plasmáticos", n:"Ácido glutâmico", u:"µmol/L", v:{"2026-09-29":117.4}},
+ {g:"Aminoácidos plasmáticos", n:"Ácido aspártico", u:"µmol/L", v:{"2026-09-29":20.9}},
+ {g:"Aminoácidos plasmáticos", n:"Ácido argininossuccínico", u:"µmol/L", v:{"2026-09-29":0.2}},
+ {g:"Aminoácidos plasmáticos", n:"Arginina", u:"µmol/L", v:{"2026-09-29":36.6}},
+ {g:"Aminoácidos plasmáticos", n:"Citrulina", u:"µmol/L", v:{"2026-09-29":18.8}},
+ {g:"Aminoácidos plasmáticos", n:"Ornitina", u:"µmol/L", v:{"2026-09-29":55.8}},
+ {g:"Aminoácidos plasmáticos", n:"Fenilalanina", u:"µmol/L", v:{"2026-09-29":25.2}},
+ {g:"Aminoácidos plasmáticos", n:"Tirosina", u:"µmol/L", v:{"2026-09-29":44.7}},
+ {g:"Aminoácidos plasmáticos", n:"Histidina", u:"µmol/L", v:{"2026-09-29":70.1}},
+ {g:"Aminoácidos plasmáticos", n:"Leucina + isoleucina", u:"µmol/L", v:{"2026-09-29":85.4}},
+ {g:"Aminoácidos plasmáticos", n:"Valina", u:"µmol/L", v:{"2026-09-29":62.1}},
+ {g:"Aminoácidos plasmáticos", n:"Metionina", u:"µmol/L", v:{"2026-09-29":15.0}},
+ {g:"Aminoácidos plasmáticos", n:"Treonina", u:"µmol/L", v:{"2026-09-29":45.9}},
+ {g:"Aminoácidos plasmáticos", n:"Triptofano", u:"µmol/L", v:{"2026-09-29":27.9}},
+];
+// ---------- FIM DOS DADOS ----------
+
+const groups = [...new Set(ROWS.map(r=>r.g))];
+const state = {q:"", group:null, onlyMulti:false};
+
+function fmt(n){
+  if(typeof n!=="number") return n;
+  if(Math.abs(n)>=10000) return n.toLocaleString("pt-BR");
+  return n.toLocaleString("pt-BR",{maximumFractionDigits:2});
+}
+function cell(row, idx){
+  const d = DATES[idx].id, val = row.v[d];
+  if(val===undefined) return '<td class="v"></td>';
+  if(typeof val!=="number"){
+    const pos = /detectado|reagente$/.test(val) && !/não/.test(val);
+    return `<td class="v q"><span class="${pos?'q-pos':''}">${val}</span></td>`;
+  }
+  let prev; for(let i=idx-1;i>=0;i--){const p=row.v[DATES[i].id]; if(typeof p==="number"){prev=p;break;}}
+  let delta="";
+  if(prev!==undefined){
+    const diff=val-prev;
+    if(diff===0) delta='<span class="delta">=</span>';
+    else{
+      const pct = prev!==0 ? Math.round(Math.abs(diff)/Math.abs(prev)*100) : null;
+      const cls = diff>0?"up":"down", arrow = diff>0?"▲":"▼";
+      delta=`<span class="delta ${cls}">${arrow} ${fmt(Math.abs(diff))}${pct!==null?` (${pct}%)`:""}</span>`;
+    }
+  }
+  return `<td class="v"><span class="n">${fmt(val)}</span>${delta}</td>`;
+}
+const MATERIALS=[
+  {id:"sangue", title:"Sangue", sub:"venoso"},
+  {id:"papel",  title:"Teste do pezinho", sub:"papel-filtro, 4 dias de vida"},
+  {id:"urina",  title:"Urina", sub:""},
+];
+function render(){
+  const q=state.q.trim().toLowerCase();
+  let total=0, out="";
+  for(const mat of MATERIALS){
+    const matRows = ROWS.filter(r=>(r.m||"sangue")===mat.id);
+    const usedDates = DATES.filter(dt=>matRows.some(r=>r.v[dt.id]!==undefined));
+    let body="", shown=0;
+    const matGroups=[...new Set(matRows.map(r=>r.g))];
+    for(const g of matGroups){
+      if(state.group && state.group!==g) continue;
+      const rows = matRows.filter(r=>r.g===g)
+        .filter(r=>!q || r.n.toLowerCase().includes(q))
+        .filter(r=>!state.onlyMulti || Object.values(r.v).filter(x=>typeof x==="number").length>=2);
+      if(!rows.length) continue;
+      body += `<tr class="group"><td colspan="${usedDates.length+2}">${g}<span>${rows.length}</span></td></tr>`;
+      for(const r of rows){
+        shown++;
+        body += `<tr><td class="name">${r.n}${r.u?`<span class="u">${r.u}</span>`:""}</td>`;
+        body += usedDates.map(dt=>cell(r, DATES.indexOf(dt))).join("");
+        body += `<td class="note">${r.note||""}</td></tr>`;
+      }
+    }
+    if(!shown) continue;
+    total+=shown;
+    out += `<h2>${mat.title}<span>${mat.sub}${mat.sub?" · ":""}${shown} exames</span></h2>`;
+    out += `<div class="scroller"><table><thead><tr><th>Exame</th>${usedDates.map(dt=>`<th><span class="d">${dt.label}</span><span class="t">${dt.sub}</span></th>`).join("")}<th style="text-align:left">Observação</th></tr></thead><tbody>${body}</tbody></table></div>`;
+  }
+  document.getElementById("sections").innerHTML = out || `<div class="scroller"><div class="empty">Nenhum exame corresponde ao filtro. Limpe a busca ou troque o grupo.</div></div>`;
+  document.getElementById("count").textContent = `${total} exames`;
+  fitScrollers();
+}
+function fitScrollers(){
+  for(const sc of document.querySelectorAll(".scroller")){
+    const top=sc.getBoundingClientRect().top+window.scrollY;
+    sc.style.maxHeight=Math.max(240, window.innerHeight-top-14)+"px";
+  }
+}
+// chips
+const controls=document.getElementById("controls");
+const all=document.createElement("button"); all.className="chip"; all.textContent="Todos"; all.setAttribute("aria-pressed","true");
+all.onclick=()=>{state.group=null; syncChips(); render();};
+controls.appendChild(all);
+for(const g of groups){
+  const b=document.createElement("button"); b.className="chip"; b.textContent=g; b.dataset.g=g; b.setAttribute("aria-pressed","false");
+  b.onclick=()=>{state.group = state.group===g?null:g; syncChips(); render();};
+  controls.appendChild(b);
+}
+const count=document.createElement("span"); count.id="count"; count.style.cssText="color:var(--muted);font-size:13px;margin-left:auto"; controls.appendChild(count);
+function syncChips(){ for(const b of controls.querySelectorAll(".chip")) b.setAttribute("aria-pressed", String((b.dataset.g||null)===state.group)); }
+document.getElementById("q").addEventListener("input",e=>{state.q=e.target.value; render();});
+document.getElementById("onlyMulti").addEventListener("change",e=>{state.onlyMulti=e.target.checked; render();});
+render();
+window.addEventListener("resize",fitScrollers);
+</script>
+</body>
+</html>
