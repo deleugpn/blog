@@ -3,310 +3,547 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Laura — exames laboratoriais</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<title>Evolução laboratorial — Laura Ferreira Deleu</title>
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
 <style>
-:root{
-  box-sizing:border-box;
-  padding-top:env(safe-area-inset-top,0px);
-  padding-bottom:env(safe-area-inset-bottom,0px);
-  --bg:#f4f6f5; --panel:#ffffff; --ink:#1b262a; --muted:#5f6f74; --line:#d9e0e0; --line-strong:#b9c5c6;
-  --head:#e9eeed; --accent:#1e6f8e; --up:#8a3b6f; --down:#1f7a66; --flag:#b8731a; --chip:#e4ebea;
-  --font:"IBM Plex Sans",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-}
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --bg:#131b1e; --panel:#1a2428; --ink:#e6ecee; --muted:#93a4aa; --line:#2b383d; --line-strong:#3c4c52;
-    --head:#202c31; --accent:#6fb6d3; --up:#d58ab8; --down:#5fc4a9; --flag:#e0a456; --chip:#263237;
+  :root{
+    color-scheme: light;
+    --bg:#f5f6f4; --surface:#ffffff; --surface-2:#eef0ec; --border:#dfe2dc; --border-2:#c3c7bf;
+    --text:#17191c; --text-2:#52565c; --text-3:#8a8f96;
+    --low:#1f4fb8; --low-bg:#dee8ff; --low-bg-2:#b9ceff;
+    --high:#b4281c; --high-bg:#fde2df; --high-bg-2:#f9b9b2;
+    --ok:#1f7a48; --ok-bg:#e4f3e9;
+    --band:rgba(31,122,72,.17); --line:#2b2e33; --grid:#e3e6e0;
+    --accent:#116b78; --focus:#116b78;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
   }
-}
-:root[data-theme="dark"]{
-  --bg:#131b1e; --panel:#1a2428; --ink:#e6ecee; --muted:#93a4aa; --line:#2b383d; --line-strong:#3c4c52;
-  --head:#202c31; --accent:#6fb6d3; --up:#d58ab8; --down:#5fc4a9; --flag:#e0a456; --chip:#263237;
-}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-*{box-sizing:inherit}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:14px;line-height:1.45;font-variant-numeric:tabular-nums}
-header{padding:22px 20px 10px;max-width:1400px;margin:0 auto}
-h1{font-size:20px;font-weight:600;margin:0 0 4px}
-.sub{color:var(--muted);margin:0 0 14px;font-size:13px}
-.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.controls input[type=search]{font:inherit;padding:7px 10px;border:1px solid var(--line-strong);border-radius:6px;background:var(--panel);color:var(--ink);min-width:220px}
-.controls input[type=search]:focus{outline:2px solid var(--accent);outline-offset:1px}
-.chip{font:inherit;font-size:13px;padding:6px 10px;border:1px solid transparent;border-radius:999px;background:var(--chip);color:var(--ink);cursor:pointer}
-.chip[aria-pressed=true]{background:var(--accent);color:#fff}
-.chip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-label.tog{display:inline-flex;align-items:center;gap:6px;color:var(--muted);font-size:13px;cursor:pointer;margin-left:4px}
-.wrap{max-width:1400px;margin:0 auto;padding:0 20px 40px}
-.scroller{overflow:auto;border:1px solid var(--line);border-radius:8px;background:var(--panel);max-height:calc(100dvh - 200px)}
-.scroller+h2,.legend+h2{margin-top:26px}
-h2{font-size:15px;font-weight:600;margin:0 0 8px}
-h2 span{color:var(--muted);font-weight:400;font-size:13px;margin-left:8px}
-table{border-collapse:separate;border-spacing:0;min-width:100%}
-th,td{padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top;white-space:nowrap}
-thead th{position:sticky;top:0;background:var(--head);z-index:3;text-align:right;font-weight:500}
-thead th:first-child{text-align:left;z-index:4}
-thead th .d{display:block;font-weight:600}
-thead th .t{display:block;color:var(--muted);font-size:12px;font-weight:400}
-td:first-child,th:first-child{position:sticky;left:0;background:var(--panel);z-index:2;border-right:1px solid var(--line)}
-thead th:first-child{background:var(--head)}
-tr.group td{background:var(--head);font-weight:600;padding-top:9px;padding-bottom:5px;position:sticky;left:0}
-tr.group td span{color:var(--muted);font-weight:400;font-size:12px;margin-left:8px}
-td.name{min-width:220px}
-td.name .u{color:var(--muted);font-size:12px;margin-left:6px}
-td.v{text-align:right;min-width:92px}
-td.v .n{font-weight:500}
-td.v .delta{display:block;font-size:11.5px;line-height:1.2;margin-top:1px;color:var(--muted)}
-td.v .delta.up{color:var(--up)} td.v .delta.down{color:var(--down)}
-td.v.q{color:var(--muted)}
-td.v .q-pos{color:var(--flag);font-weight:600}
-td.note{color:var(--muted);font-size:12px;white-space:normal;min-width:180px;max-width:320px}
-tbody tr:hover td{background:color-mix(in srgb,var(--accent) 7%,var(--panel))}
-tbody tr:hover td:first-child{background:color-mix(in srgb,var(--accent) 7%,var(--panel))}
-.empty{padding:24px;color:var(--muted)}
-.legend{color:var(--muted);font-size:12px;margin:10px 2px 0;display:flex;flex-wrap:wrap;gap:14px}
-.legend b{font-weight:500;color:var(--ink)}
-@media (max-width:600px){header{padding:16px 12px 8px}.wrap{padding:0 12px 30px}td.name{min-width:160px}th,td{padding:6px 8px}}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      color-scheme: dark;
+      --bg:#131416; --surface:#1b1d20; --surface-2:#24272b; --border:#2e3136; --border-2:#434750;
+      --text:#e9eae6; --text-2:#a7aaa5; --text-3:#767a78;
+      --low:#9db9ff; --low-bg:rgba(70,115,230,.22); --low-bg-2:rgba(70,115,230,.45);
+      --high:#ff9d93; --high-bg:rgba(230,75,60,.22); --high-bg-2:rgba(230,75,60,.46);
+      --ok:#73d69b; --ok-bg:rgba(60,170,100,.18);
+      --band:rgba(90,205,130,.17); --line:#e9eae6; --grid:#2e3136;
+      --accent:#5fd0d8; --focus:#5fd0d8;
+    }
+  }
+  :root[data-theme="dark"]{
+    color-scheme: dark;
+    --bg:#131416; --surface:#1b1d20; --surface-2:#24272b; --border:#2e3136; --border-2:#434750;
+    --text:#e9eae6; --text-2:#a7aaa5; --text-3:#767a78;
+    --low:#9db9ff; --low-bg:rgba(70,115,230,.22); --low-bg-2:rgba(70,115,230,.45);
+    --high:#ff9d93; --high-bg:rgba(230,75,60,.22); --high-bg-2:rgba(230,75,60,.46);
+    --ok:#73d69b; --ok-bg:rgba(60,170,100,.18);
+    --band:rgba(90,205,130,.17); --line:#e9eae6; --grid:#2e3136;
+    --accent:#5fd0d8; --focus:#5fd0d8;
+  }
+  html{scroll-padding-top:env(safe-area-inset-top,0px)}
+  body{background:var(--bg);color:var(--text);font-family:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-variant-numeric:tabular-nums;-webkit-text-size-adjust:100%}
+  :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+
+  .echip{display:inline-flex;align-items:baseline;gap:.35em;padding:3px 9px;border:1px solid var(--border-2);border-radius:999px;color:var(--text-2);background:var(--surface)}
+  .echip.cur{color:var(--text);border-color:var(--text-2)}
+  .echip b{font-weight:600;color:var(--text)}
+  .echip-sep{color:var(--text-3);align-self:center}
+
+  .chip{display:inline-flex;align-items:baseline;gap:.4em;padding:4px 10px;border-radius:8px;font-size:13px;border:1px solid transparent;cursor:pointer;text-align:left;line-height:1.25}
+  .chip b{font-weight:700}
+  .chip.low{background:var(--low-bg);color:var(--low)} .chip.low.s2{background:var(--low-bg-2)}
+  .chip.high,.chip.alt{background:var(--high-bg);color:var(--high)} .chip.high.s2{background:var(--high-bg-2)}
+  .chip .cs{font-size:11px;opacity:.75}
+  .chip:hover{border-color:currentColor}
+  .empty{color:var(--text-3);font-size:13px}
+
+  .btn{border:1px solid var(--border-2);background:var(--surface);color:var(--text);padding:4px 10px;border-radius:8px;font-size:13px;line-height:1.3}
+  .btn:hover{background:var(--surface-2)}
+  input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px}
+  .legend{display:flex;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--text-2)}
+  .sw{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-1px;margin-right:5px}
+
+  .panel{margin-bottom:26px}
+  .panel h2{font-size:15px;font-weight:600;margin:0 0 2px;letter-spacing:-.01em}
+  .panel .ptoggle{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+  .panel .ptoggle::before{content:"▾";font-size:12px;color:var(--text-3);transition:transform .15s}
+  .panel.collapsed .ptoggle::before{transform:rotate(-90deg)}
+  .panel .pmeta{font-weight:400;font-size:12px;color:var(--text-3);margin-left:4px}
+  .panel .nota{font-size:12px;color:var(--text-3);margin:0 0 8px}
+  .panel.collapsed .nota,.panel.collapsed .tbl-wrap{display:none}
+  .tbl-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:10px;background:var(--surface);-webkit-overflow-scrolling:touch}
+  table.flow{border-collapse:separate;border-spacing:0;width:100%;min-width:680px;font-size:13px}
+  .flow th,.flow td{padding:6px 9px;border-bottom:1px solid var(--border);white-space:nowrap;vertical-align:middle}
+  .flow tbody tr:last-child td{border-bottom:0}
+  .flow thead th{font-weight:500;color:var(--text-2);font-size:12px;background:var(--surface-2);text-align:right;line-height:1.2;vertical-align:top}
+  .flow thead th .h2{display:block;font-size:11px;color:var(--text-3);font-weight:400}
+  .flow thead th.cur{color:var(--text);font-weight:600}
+  .flow thead th.c-an,.flow thead th.c-t,.flow thead th.c-r{text-align:left}
+  .flow th.c-an,.flow td.c-an{position:sticky;left:0;z-index:1;background:var(--surface);text-align:left;min-width:150px;max-width:210px;white-space:normal;box-shadow:1px 0 0 var(--border)}
+  .flow thead th.c-an{background:var(--surface-2);z-index:2}
+  .an-nome{display:block;font-weight:500;line-height:1.2}
+  .an-un{display:block;font-size:11px;color:var(--text-3);line-height:1.2;margin-top:1px}
+  .flow td.c-v{text-align:right;min-width:76px}
+  .flow td.c-v.cur{background:color-mix(in srgb,var(--surface-2) 55%,var(--surface))}
+  .flow td.c-t{min-width:150px;padding-top:3px;padding-bottom:3px}
+  .flow td.c-r{color:var(--text-2);font-size:12px;min-width:118px;white-space:normal;max-width:220px}
+  .flow tbody tr.row{cursor:pointer}
+  .flow tbody tr.row:hover td.c-an{background:var(--surface-2)}
+  .flow tbody tr.row td.c-an::after{content:"›";float:right;color:var(--text-3);margin-left:6px;transition:transform .15s}
+  .flow tbody tr.row.open td.c-an::after{transform:rotate(90deg)}
+  .v{display:inline-block;padding:2px 6px;border-radius:6px;line-height:1.25}
+  .v.low{color:var(--low);background:var(--low-bg)} .v.low.s2{background:var(--low-bg-2);font-weight:700}
+  .v.high{color:var(--high);background:var(--high-bg)} .v.high.s2{background:var(--high-bg-2);font-weight:700}
+  .v.alt{color:var(--high);background:var(--high-bg);font-weight:600}
+  .v.none{color:var(--text-3)} .v.na{color:var(--text)}
+  .v .arr{font-size:11px;margin-left:1px}
+  .sub{display:block;font-size:10.5px;color:var(--text-3);line-height:1.15;margin-top:3px;padding-right:6px}
+  .refchg{color:var(--accent);cursor:help}
+
+  .spark{display:block}
+  .band{fill:var(--band)}
+  .spark-line{fill:none;stroke:var(--line);stroke-width:1.4;stroke-linejoin:round;stroke-linecap:round}
+  .dot.low{fill:var(--low)} .dot.high{fill:var(--high)} .dot.ok{fill:var(--ok)} .dot.na{fill:var(--text-3)}
+  .dot{stroke:var(--surface);stroke-width:1.2}
+  tr.detail{display:none} tr.detail.open{display:table-row}
+  tr.detail>td{background:var(--surface-2);padding:10px 12px 12px;white-space:normal}
+  .detail-in{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
+  @media (min-width:900px){.detail-in{grid-template-columns:minmax(0,3fr) minmax(0,2fr);align-items:start}}
+  .chart{width:100%;height:auto;max-height:230px;display:block}
+  .chart .grid{stroke:var(--grid);stroke-width:1}
+  .chart .tick{font-size:11px;fill:var(--text-3)}
+  .chart .xl{font-size:11.5px;fill:var(--text);font-weight:500} .chart .xl2{font-size:10.5px;fill:var(--text-3)}
+  .chart .dim{opacity:.45}
+  .chart .vl{font-size:12px;font-weight:600;fill:var(--text)} .chart .vl.low{fill:var(--low)} .chart .vl.high{fill:var(--high)}
+  .chart .chart-line{fill:none;stroke:var(--line);stroke-width:1.6;stroke-linejoin:round}
+  .dl{list-style:none;margin:0;padding:0;font-size:13px}
+  .dl li{display:grid;grid-template-columns:auto auto 1fr;gap:4px 10px;align-items:baseline;padding:5px 0;border-bottom:1px solid var(--border)}
+  .dl li:last-child{border-bottom:0}
+  .dl .dl-d{color:var(--text-2);white-space:nowrap}
+  .dl .dl-r{grid-column:1/-1;font-size:12px;color:var(--text-3)}
+  .dl .dl-l{font-size:12px;color:var(--text-3);text-align:right}
+
+  .only-alt tr.row:not(.alt){display:none}
+  .only-alt tr.row:not(.alt)+tr.detail{display:none}
+  .only-alt .panel.no-alt{display:none}
+
+  @media (max-width:640px){
+    table.flow{font-size:12.5px;min-width:640px}
+    .flow th,.flow td{padding:5px 7px}
+    .flow th.c-an,.flow td.c-an{min-width:128px;max-width:150px}
+    .flow td.c-v{min-width:66px}
+    .flow td.c-t{min-width:128px}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+  @media print{
+    :root{--bg:#fff}
+    .no-print{display:none!important}
+    body{font-size:11px}
+    .tbl-wrap{overflow:visible;border-radius:0}
+    table.flow{min-width:0;font-size:11px}
+    .flow th,.flow td{padding:3px 6px}
+    .panel{break-inside:avoid}
+    .panel.collapsed .nota,.panel.collapsed .tbl-wrap{display:block}
+    tr.detail.open{display:table-row}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
 </style>
 </head>
 <body>
-<header>
-  <h1>Laura — exames laboratoriais</h1>
-  <p class="sub">Valores por data de coleta, uma tabela por material (sangue, papel-filtro, urina). Abaixo de cada valor, a variação em relação à medida anterior do mesmo exame. Sem valores de referência nesta versão.</p>
-  <div class="controls" id="controls">
-    <input type="search" id="q" placeholder="Buscar exame (ex.: TGP, plaquetas)" aria-label="Buscar exame">
-    <label class="tog"><input type="checkbox" id="onlyMulti"> só exames com 2+ medidas</label>
+<div class="max-w-6xl mx-auto px-3 sm:px-6 py-5">
+
+  <header class="mb-6">
+    <h1 class="text-xl sm:text-2xl font-semibold tracking-tight" id="pac-nome"></h1>
+  </header>
+
+  <section class="mb-6">
+    <h2 class="text-sm font-semibold mb-2">Fora da referência no último resultado</h2>
+    <div class="flex flex-wrap gap-1.5" id="alertas"></div>
+  </section>
+
+  <div class="no-print flex flex-wrap items-center gap-x-5 gap-y-2 mb-5 text-sm">
+    <label class="inline-flex items-center gap-2 cursor-pointer"><input type="checkbox" id="only-alt"> Somente alterados</label>
+    <button class="btn" id="exp-all" type="button">Expandir gráficos</button>
   </div>
-</header>
-<div class="wrap">
-  <div id="sections"></div>
-  <div class="legend">
-    <span><b>▲</b> subiu em relação à medida anterior</span>
-    <span><b>▼</b> desceu</span>
-    <span><b>=</b> igual</span>
-    <span>Colunas vazias: exame não colhido naquela data.</span>
-  </div>
+
+  <main id="paineis"></main>
+
+  <footer class="mt-8 text-xs leading-relaxed max-w-prose" style="color:var(--text-3)" id="rodape"></footer>
 </div>
 
 <script>
-// ---------- DADOS (edite aqui) ----------
-// Datas de coleta (ISO) e rótulo curto.
-const DATES = [
-  {id:"2026-06-23", label:"23/06", sub:"4 dias · pezinho"},
-  {id:"2026-06-24", label:"24/06", sub:"5 dias"},
-  {id:"2026-09-21", label:"21/09", sub:"3 m · Dra. Kamilla"},
-  {id:"2026-09-28", label:"28/09", sub:"urina"},
-  {id:"2026-09-29", label:"29/09", sub:"3 m · Dra. Tainá"},
-  {id:"2026-10-06", label:"06/10", sub:"urina"},
-  {id:"2026-10-11", label:"11/10", sub:"internação · 21:38"},
-  {id:"2026-10-16", label:"16/10", sub:"internação · 12:24"},
-];
-// Cada linha: grupo, nome, unidade, valores por data (número ou texto), nota opcional.
-const ROWS = [
- // Hematologia
- {g:"Hematologia", n:"Hemoglobina", u:"g/dL", v:{"2026-09-21":10.4,"2026-09-29":9.8,"2026-10-11":9.5,"2026-10-16":8.3}},
- {g:"Hematologia", n:"Hematócrito", u:"%", v:{"2026-09-21":29.5,"2026-09-29":29.1,"2026-10-11":26.9,"2026-10-16":24.0}},
- {g:"Hematologia", n:"Hemácias", u:"10⁶/µL", v:{"2026-09-21":3.52,"2026-09-29":3.28,"2026-10-11":3.2,"2026-10-16":2.8}},
- {g:"Hematologia", n:"VCM", u:"fL", v:{"2026-09-21":83.8,"2026-09-29":88.7,"2026-10-11":84,"2026-10-16":84}},
- {g:"Hematologia", n:"HCM", u:"pg", v:{"2026-09-21":29.5,"2026-09-29":29.9,"2026-10-11":29.7,"2026-10-16":29.2}},
- {g:"Hematologia", n:"CHCM", u:"g/dL", v:{"2026-09-21":35.3,"2026-09-29":33.7,"2026-10-11":35.3,"2026-10-16":34.5}},
- {g:"Hematologia", n:"RDW", u:"%", v:{"2026-09-21":14.6,"2026-09-29":14.5,"2026-10-11":13.2,"2026-10-16":13.2}},
- {g:"Hematologia", n:"Reticulócitos", u:"%", v:{"2026-09-21":2.8}, note:"98.560/mm³"},
- {g:"Hematologia", n:"Leucócitos", u:"/mm³", v:{"2026-09-21":6910,"2026-09-29":7050,"2026-10-11":5330,"2026-10-16":11440}},
- {g:"Hematologia", n:"Neutrófilos segmentados", u:"/mm³", v:{"2026-09-21":2240,"2026-09-29":1904,"2026-10-11":852,"2026-10-16":8808}},
- {g:"Hematologia", n:"Bastonetes", u:"/mm³", v:{"2026-09-21":0,"2026-09-29":71,"2026-10-11":53,"2026-10-16":0}},
- {g:"Hematologia", n:"Linfócitos", u:"/mm³", v:{"2026-09-21":3520,"2026-09-29":3878,"2026-10-11":3518,"2026-10-16":2174}},
- {g:"Hematologia", n:"Monócitos", u:"/mm³", v:{"2026-09-21":1000,"2026-09-29":917,"2026-10-11":640,"2026-10-16":458}},
- {g:"Hematologia", n:"Eosinófilos", u:"/mm³", v:{"2026-09-21":130,"2026-09-29":282,"2026-10-11":267,"2026-10-16":0}},
- {g:"Hematologia", n:"Basófilos", u:"/mm³", v:{"2026-09-21":20,"2026-09-29":0,"2026-10-11":0,"2026-10-16":0}},
- {g:"Hematologia", n:"Plaquetas", u:"/mm³", v:{"2026-09-21":659000,"2026-09-29":589000,"2026-10-11":460000,"2026-10-16":191000}},
- {g:"Hematologia", n:"VPM", u:"fL", v:{"2026-09-29":10.2,"2026-10-11":10.2,"2026-10-16":11.2}},
- // Coagulação
- {g:"Coagulação", n:"TAP (INR)", u:"", v:{"2026-09-21":0.99,"2026-10-11":1.11}, note:"11,4 s"},
- {g:"Coagulação", n:"TTPA (relação)", u:"", v:{"2026-09-21":1.19,"2026-10-11":1.1}, note:"33,5 s"},
- // Fígado
- {g:"Fígado", n:"TGP / ALT", u:"U/L", v:{"2026-09-21":94,"2026-09-29":28,"2026-10-11":31,"2026-10-16":28}},
- {g:"Fígado", n:"TGO / AST", u:"U/L", v:{"2026-09-21":49,"2026-09-29":32,"2026-10-11":40,"2026-10-16":34}},
- {g:"Fígado", n:"Gama-GT", u:"U/L", v:{"2026-09-21":80,"2026-09-29":49,"2026-10-11":29,"2026-10-16":22}},
- {g:"Fígado", n:"Fosfatase alcalina", u:"U/L", v:{"2026-09-21":290,"2026-09-29":196,"2026-10-11":693,"2026-10-16":447}, note:"laboratórios diferentes; 11/10 ref. até 644"},
- {g:"Fígado", n:"Bilirrubina total", u:"mg/dL", v:{"2026-06-24":8.60,"2026-09-21":0.18,"2026-09-29":0.20,"2026-10-11":0.2,"2026-10-16":0.3}},
- {g:"Fígado", n:"Bilirrubina direta", u:"mg/dL", v:{"2026-06-24":0.36,"2026-09-21":0.10,"2026-09-29":0.06,"2026-10-11":0.01,"2026-10-16":0.16}},
- {g:"Fígado", n:"Bilirrubina indireta", u:"mg/dL", v:{"2026-06-24":8.24,"2026-09-21":0.08,"2026-09-29":0.14,"2026-10-11":0.19,"2026-10-16":0.14}},
- {g:"Fígado", n:"Albumina", u:"g/dL", v:{"2026-09-21":4.0,"2026-09-29":4.2,"2026-10-11":4.3}},
- {g:"Fígado", n:"Globulinas", u:"g/dL", v:{"2026-09-21":1.9,"2026-10-11":1.6}},
- {g:"Fígado", n:"Proteínas totais", u:"g/dL", v:{"2026-09-21":5.9,"2026-10-11":5.9}},
- {g:"Fígado", n:"DHL / LDH", u:"U/L", v:{"2026-09-21":279,"2026-09-29":247,"2026-10-11":305}},
- // Rim e eletrólitos
- {g:"Rim e eletrólitos", n:"Creatinina", u:"mg/dL", v:{"2026-09-21":0.30,"2026-09-29":0.31,"2026-10-11":0.3,"2026-10-16":0.2}},
- {g:"Rim e eletrólitos", n:"Ureia", u:"mg/dL", v:{"2026-09-21":6.8,"2026-09-29":7,"2026-10-11":16,"2026-10-16":10}},
- {g:"Rim e eletrólitos", n:"Sódio", u:"mmol/L", v:{"2026-09-21":142,"2026-09-29":138,"2026-10-11":136,"2026-10-16":133}},
- {g:"Rim e eletrólitos", n:"Potássio", u:"mmol/L", v:{"2026-09-21":5.5,"2026-09-29":5.0,"2026-10-11":4.8,"2026-10-16":3.9}},
- {g:"Rim e eletrólitos", n:"Cloro", u:"mmol/L", v:{"2026-09-29":105}},
- {g:"Rim e eletrólitos", n:"Cálcio", u:"mg/dL", v:{"2026-09-29":10.4,"2026-10-11":10.3}},
- {g:"Rim e eletrólitos", n:"Cálcio iônico", u:"mmol/L", v:{"2026-10-16":1.300}},
- {g:"Rim e eletrólitos", n:"Fósforo", u:"mg/dL", v:{"2026-09-29":7.1,"2026-10-16":4.2}},
- {g:"Rim e eletrólitos", n:"Magnésio", u:"mg/dL", v:{"2026-09-29":2.1,"2026-10-11":1.7,"2026-10-16":1.4}},
- {g:"Rim e eletrólitos", n:"Ácido úrico", u:"mg/dL", v:{"2026-09-29":3.0}},
- // Gasometria
- {g:"Gasometria venosa", n:"pH", u:"", v:{"2026-10-16":7.374}, note:"coleta 15:23"},
- {g:"Gasometria venosa", n:"pCO2", u:"mmHg", v:{"2026-10-16":40.3}},
- {g:"Gasometria venosa", n:"pO2", u:"mmHg", v:{"2026-10-16":35.1}},
- {g:"Gasometria venosa", n:"HCO3", u:"mmol/L", v:{"2026-10-16":23.7}},
- {g:"Gasometria venosa", n:"Excesso de base (BE)", u:"mmol/L", v:{"2026-10-16":-0.7}},
- {g:"Gasometria venosa", n:"Saturação O2 (venosa)", u:"%", v:{"2026-10-16":65.9}},
- // Metabólico e inflamatório
- {g:"Metabólico e inflamatório", n:"Glicose", u:"mg/dL", v:{"2026-09-21":105}},
- {g:"Metabólico e inflamatório", n:"Ácido lático", u:"mg/dL", v:{"2026-09-29":39.0}, note:"coleta 06:23"},
- {g:"Metabólico e inflamatório", n:"CK total", u:"U/L", v:{"2026-09-29":86}},
- {g:"Metabólico e inflamatório", n:"Ferritina", u:"ng/mL", v:{"2026-09-21":114.8}},
- {g:"Metabólico e inflamatório", n:"PCR", u:"mg/L", v:{"2026-09-21":3.0,"2026-09-29":0.79,"2026-10-11":1.5,"2026-10-16":64.8}, note:"21/09 = limite de detecção do método; 29/09 ultrassensível; 11/10 e 16/10 laboratório do hospital"},
- // Tireoide
- {g:"Tireoide", n:"TSH", u:"µUI/mL", v:{"2026-09-21":0.83,"2026-09-29":1.34}},
- {m:"papel", g:"Tireoide", n:"TSH neonatal", u:"µU/mL", v:{"2026-06-23":0.18}},
- {g:"Tireoide", n:"T4 livre", u:"ng/dL", v:{"2026-09-21":1.42,"2026-09-29":1.22}},
- {m:"papel", g:"Tireoide", n:"T4 neonatal (total)", u:"µg/dL", v:{"2026-06-23":7.30}},
- // CMV e sorologias
- {g:"CMV e sorologias", n:"CMV PCR sangue", u:"UI/mL", v:{"2026-09-21":1152,"2026-10-16":"não detectado"}, note:"21/09: 3,06 log (Abbott); 16/10: lab. do hospital, limite 35 UI/mL"},
- {m:"urina", g:"CMV", n:"CMV PCR urina", u:"", v:{"2026-09-28":"detectado","2026-10-06":"detectado"}},
- {g:"CMV e sorologias", n:"CMV IgG", u:"AU/mL", v:{"2026-09-29":71.23}},
- {g:"CMV e sorologias", n:"CMV IgM", u:"S/CO", v:{"2026-09-29":1.82}, note:"reagente"},
- {m:"papel", g:"Sorologias", n:"CMV IgM", u:"", v:{"2026-06-23":"não reagente"}},
- {g:"CMV e sorologias", n:"Toxoplasmose IgG", u:"UI/mL", v:{"2026-09-21":0.2}, note:"não reagente"},
- {g:"CMV e sorologias", n:"Toxoplasmose IgM", u:"índice", v:{"2026-09-21":0.05}, note:"não reagente"},
- {m:"papel", g:"Sorologias", n:"Toxoplasmose IgM", u:"", v:{"2026-06-23":"não reagente"}},
- {m:"papel", g:"Sorologias", n:"Rubéola IgM", u:"", v:{"2026-06-23":"não reagente"}},
- {m:"papel", g:"Sorologias", n:"Sífilis", u:"", v:{"2026-06-23":"não reagente"}},
- {m:"papel", g:"Sorologias", n:"Chagas IgG", u:"", v:{"2026-06-23":"não reagente"}},
- // Imunidade
- {m:"papel", g:"Imunidade (triagem)", n:"TREC", u:"cópias/µL", v:{"2026-06-23":32}, note:"papel-filtro; corte > 30"},
- {m:"papel", g:"Imunidade (triagem)", n:"KREC", u:"cópias/µL", v:{"2026-06-23":184}, note:"papel-filtro"},
- // Triagem neonatal
- {m:"papel", g:"Triagem neonatal", n:"IRT (fibrose cística)", u:"ng/mL", v:{"2026-06-23":19.70}},
- {m:"papel", g:"Triagem neonatal", n:"17-OHP", u:"ng/mL", v:{"2026-06-23":1.80}},
- {m:"papel", g:"Triagem neonatal", n:"Galactose", u:"mg/dL", v:{"2026-06-23":3.86}},
- {m:"papel", g:"Triagem neonatal", n:"G6PD", u:"U/gHb", v:{"2026-06-23":6.30}},
- {m:"papel", g:"Triagem neonatal", n:"Fenilalanina", u:"mg/dL", v:{"2026-06-23":0.9}},
- {m:"papel", g:"Triagem neonatal", n:"Tirosina", u:"mg/dL", v:{"2026-06-23":1.6}},
- {m:"papel", g:"Triagem neonatal", n:"Hemoglobinopatias", u:"", v:{"2026-06-23":"FA"}},
- {m:"papel", g:"Triagem neonatal", n:"Biotinidase", u:"", v:{"2026-06-23":"ativa"}},
- {m:"papel", g:"Triagem neonatal", n:"Beta-glicosidase (Gaucher)", u:"µmol/L/h", v:{"2026-06-23":14.02}},
- {m:"papel", g:"Triagem neonatal", n:"Alfa-glicosidase (Pompe)", u:"µmol/L/h", v:{"2026-06-23":5.78}},
- {m:"papel", g:"Triagem neonatal", n:"Alfa-galactosidase (Fabry)", u:"µmol/L/h", v:{"2026-06-23":27.70}},
- {m:"papel", g:"Triagem neonatal", n:"Esfingomielinase (Niemann-Pick)", u:"µmol/L/h", v:{"2026-06-23":4.20}},
- {m:"papel", g:"Triagem neonatal", n:"Galactocerebrosidase (Krabbe)", u:"µmol/L/h", v:{"2026-06-23":18.76}},
- {m:"papel", g:"Triagem neonatal", n:"Alfa-L-iduronidase (MPS I)", u:"µmol/L/h", v:{"2026-06-23":5.34}},
- {m:"papel", g:"Triagem neonatal", n:"SMA (deleção SMN1)", u:"", v:{"2026-06-23":"ausente"}},
- // Aminoácidos plasmáticos
- {g:"Aminoácidos plasmáticos", n:"Alanina", u:"µmol/L", v:{"2026-09-29":136.8}},
- {g:"Aminoácidos plasmáticos", n:"Serina", u:"µmol/L", v:{"2026-09-29":44.4}},
- {g:"Aminoácidos plasmáticos", n:"Glicina", u:"µmol/L", v:{"2026-09-29":119.8}},
- {g:"Aminoácidos plasmáticos", n:"Prolina + asparagina", u:"µmol/L", v:{"2026-09-29":289.0}},
- {g:"Aminoácidos plasmáticos", n:"Glutamina + lisina", u:"µmol/L", v:{"2026-09-29":9.4}},
- {g:"Aminoácidos plasmáticos", n:"Ácido glutâmico", u:"µmol/L", v:{"2026-09-29":117.4}},
- {g:"Aminoácidos plasmáticos", n:"Ácido aspártico", u:"µmol/L", v:{"2026-09-29":20.9}},
- {g:"Aminoácidos plasmáticos", n:"Ácido argininossuccínico", u:"µmol/L", v:{"2026-09-29":0.2}},
- {g:"Aminoácidos plasmáticos", n:"Arginina", u:"µmol/L", v:{"2026-09-29":36.6}},
- {g:"Aminoácidos plasmáticos", n:"Citrulina", u:"µmol/L", v:{"2026-09-29":18.8}},
- {g:"Aminoácidos plasmáticos", n:"Ornitina", u:"µmol/L", v:{"2026-09-29":55.8}},
- {g:"Aminoácidos plasmáticos", n:"Fenilalanina", u:"µmol/L", v:{"2026-09-29":25.2}},
- {g:"Aminoácidos plasmáticos", n:"Tirosina", u:"µmol/L", v:{"2026-09-29":44.7}},
- {g:"Aminoácidos plasmáticos", n:"Histidina", u:"µmol/L", v:{"2026-09-29":70.1}},
- {g:"Aminoácidos plasmáticos", n:"Leucina + isoleucina", u:"µmol/L", v:{"2026-09-29":85.4}},
- {g:"Aminoácidos plasmáticos", n:"Valina", u:"µmol/L", v:{"2026-09-29":62.1}},
- {g:"Aminoácidos plasmáticos", n:"Metionina", u:"µmol/L", v:{"2026-09-29":15.0}},
- {g:"Aminoácidos plasmáticos", n:"Treonina", u:"µmol/L", v:{"2026-09-29":45.9}},
- {g:"Aminoácidos plasmáticos", n:"Triptofano", u:"µmol/L", v:{"2026-09-29":27.9}},
-];
-// ---------- FIM DOS DADOS ----------
+/* =========================================================
+   DADOS — transcritos dos laudos
+   Novo exame: adicionar em EXAMES (ordem cronológica) e
+   preencher valores[<id>] em cada analito. Um valor pode ser:
+     número | string | {v, pct, ref, dec, nota, hora}
+   ref/dec sobrescrevem os do analito para aquela coleta.
+   ========================================================= */
+const PACIENTE = {
+  nome: "Laura Ferreira Deleu",
+  idade: "3 meses",
+  nascimento: "19/06/2026",
+};
 
-const groups = [...new Set(ROWS.map(r=>r.g))];
-const state = {q:"", group:null, onlyMulti:false};
-
-function fmt(n){
-  if(typeof n!=="number") return n;
-  if(Math.abs(n)>=10000) return n.toLocaleString("pt-BR");
-  return n.toLocaleString("pt-BR",{maximumFractionDigits:2});
-}
-function cell(row, idx){
-  const d = DATES[idx].id, val = row.v[d];
-  if(val===undefined) return '<td class="v"></td>';
-  if(typeof val!=="number"){
-    const pos = /detectado|reagente$/.test(val) && !/não/.test(val);
-    return `<td class="v q"><span class="${pos?'q-pos':''}">${val}</span></td>`;
-  }
-  let prev; for(let i=idx-1;i>=0;i--){const p=row.v[DATES[i].id]; if(typeof p==="number"){prev=p;break;}}
-  let delta="";
-  if(prev!==undefined){
-    const diff=val-prev;
-    if(diff===0) delta='<span class="delta">=</span>';
-    else{
-      const pct = prev!==0 ? Math.round(Math.abs(diff)/Math.abs(prev)*100) : null;
-      const cls = diff>0?"up":"down", arrow = diff>0?"▲":"▼";
-      delta=`<span class="delta ${cls}">${arrow} ${fmt(Math.abs(diff))}${pct!==null?` (${pct}%)`:""}</span>`;
-    }
-  }
-  return `<td class="v"><span class="n">${fmt(val)}</span>${delta}</td>`;
-}
-const MATERIALS=[
-  {id:"sangue", title:"Sangue", sub:"venoso"},
-  {id:"papel",  title:"Teste do pezinho", sub:"papel-filtro, 4 dias de vida"},
-  {id:"urina",  title:"Urina", sub:""},
+const EXAMES = [
+  { id:"e0", ts:"2026-09-29T09:58", dia:"29/09", hora:"06:23–09:58", horaPadrao:"09:58", lab:"Lab. Unimed", local:"ambulatorial",    medico:"Taina Maia",                     atend:"10077124" },
+  { id:"e1", ts:"2026-10-11T21:38", dia:"11/10", hora:"21:38",       horaPadrao:"21:38", lab:"Lab. Saúde",  local:"Premium Hospital", medico:"Antonio Fernando Sousa e Silva",  atend:"029-67854-729" },
+  { id:"e2", ts:"2026-10-16T12:24", dia:"16/10", hora:"12:24",       horaPadrao:"12:24", lab:"Lab. Saúde",  local:"Apto 308",         medico:"Nadhya Khouri Silva",             atend:"028-67859-744" },
+  { id:"e3", ts:"2026-10-17T13:46", dia:"17/10", hora:"13:46",       horaPadrao:"13:46", lab:"Lab. Saúde",  local:"UTI Ped 4",        medico:"Marcia Cortijo de Campos Martini", atend:"166-67860-1301" },
 ];
+
+const R=(min,max)=>({min,max}), MAX=max=>({max}), MIN=min=>({min}), T=texto=>({texto});
+const P=(v,pct,o)=>Object.assign({v,pct},o||{}), V=(v,o)=>Object.assign({v},o||{});
+const A=(id,nome,unidade,dec,ref,valores)=>({id,nome,unidade,dec,ref,valores});
+const H06 = {hora:"06:23"};
+
+const PAINEIS = [
+  { nome:"Eritrograma", itens:[
+    A("eri",  "Eritrócitos", "tera/L", 1, R(4.0,5.5),   {e0:V(3.28,{dec:2,ref:R(3.10,4.50)}), e1:3.2,  e2:2.8,  e3:2.3}),
+    A("hb",   "Hemoglobina", "g/dL",   1, R(10.0,14.0), {e0:V(9.8,{ref:R(9.5,13.5)}),        e1:9.5,  e2:8.3,  e3:6.6}),
+    A("ht",   "Hematócrito", "%",      1, R(30.0,40.0), {e0:V(29.1,{ref:R(29.0,41.0)}),      e1:26.9, e2:24.0, e3:19.5}),
+    A("vcm",  "VCM",         "fL",     0, R(70,80),     {e0:V(88.7,{dec:1,ref:R(74.0,108.0)}),e1:84,  e2:84,   e3:85}),
+    A("hcm",  "HCM",         "pg",     1, R(25,32),     {e0:V(29.9,{ref:R(25.0,35.0)}),      e1:29.7, e2:29.2, e3:28.9}),
+    A("chcm", "CHCM",        "g/dL",   1, R(33,35),     {e0:V(33.7,{ref:R(30.0,36.0)}),      e1:35.3, e2:34.5, e3:33.8}),
+    A("rdw",  "RDW",         "%",      1, R(11.6,14.8), {e0:V(14.5,{ref:R(10.0,17.0)}),      e1:13.2, e2:13.2, e3:13.3}),
+  ]},
+  { nome:"Leucograma", nota:"Valores absolutos em /µL; percentual do diferencial abaixo de cada valor.", itens:[
+    A("leu",   "Leucócitos totais",   "/µL", 0, R(5000,14000), {e0:V(7050,{ref:R(6000,17500)}),     e1:5330,       e2:11440,      e3:6720}),
+    A("blast", "Blastos",             "/µL", 0, R(0,0),        {e0:P(0,0),                           e1:P(0,0),     e2:P(0,0),     e3:P(0,0)}),
+    A("promi", "Promielócitos",       "/µL", 0, R(0,0),        {e0:P(0,0),                           e1:P(0,0),     e2:P(0,0),     e3:P(0,0)}),
+    A("mielo", "Mielócitos",          "/µL", 0, R(0,0),        {e0:P(0,0),                           e1:P(0,0),     e2:P(0,0),     e3:P(0,0)}),
+    A("meta",  "Metamielócitos",      "/µL", 0, R(0,0),        {e0:P(0,0),                           e1:P(0,0),     e2:P(0,0),     e3:P(0,0)}),
+    A("bast",  "Bastonetes",          "/µL", 0, R(0,500),      {e0:P(71,1,{ref:R(0,875)}),           e1:P(53,1),    e2:P(0,0),     e3:P(0,0)}),
+    A("seg",   "Segmentados",         "/µL", 0, R(1500,6000),  {e0:P(1904,27,{ref:R(2400,13125)}),   e1:P(852,16),  e2:P(8808,77), e3:P(5376,80)}),
+    A("eos",   "Eosinófilos",         "/µL", 0, R(35,500),     {e0:P(282,4,{ref:R(0,875)}),          e1:P(267,5),   e2:P(0,0),     e3:P(0,0)}),
+    A("baso",  "Basófilos",           "/µL", 0, R(0,100),      {e0:P(0,0,{ref:R(0,350)}),            e1:P(0,0),     e2:P(0,0),     e3:P(0,0)}),
+    A("linf",  "Linfócitos típicos",  "/µL", 0, R(3000,8000),  {e0:P(3878,55,{ref:R(3300,13125)}),   e1:P(3518,66), e2:P(2174,19), e3:P(1008,15)}),
+    A("linfr", "Linfócitos reativos", "/µL", 0, R(0,0),        {e0:P(0,0),                           e1:P(0,0),     e2:P(0,0),     e3:P(0,0)}),
+    A("plasm", "Plasmócitos",         "/µL", 0, R(0,0),        {e0:P(0,0)}),
+    A("mono",  "Monócitos",           "/µL", 0, R(100,1000),   {e0:P(917,13,{ref:R(120,1400)}),      e1:P(640,12),  e2:P(458,4),   e3:P(336,5)}),
+  ]},
+  { nome:"Plaquetas", itens:[
+    A("plq", "Plaquetas",               "/µL", 0, R(150000,500000), {e0:V(589000,{ref:R(150000,550000)}), e1:460000, e2:191000, e3:180000}),
+    A("vpm", "Volume plaquetário médio","fL",  2, R(6.0,10.0),      {e0:V(10.2,{dec:1,ref:R(7.4,11.4)}),   e1:10.20,  e2:11.20,  e3:10.20}),
+  ]},
+  { nome:"Coagulação", nota:"Coletas 11/10 21:39 e 17/10 13:46.", itens:[
+    A("ttpa_p", "TTPa, paciente (P)", "s", 1, R(28.0,39.0),  {e1:32.0,  e3:29.0}),
+    A("ttpa_n", "TTPa, controle (N)", "s", 1, R(28.0,39.0),  {e1:29.0,  e3:29.0}),
+    A("ttpa_r", "TTPa, relação P/N",  "",  2, MAX(1.22),     {e1:1.10,  e3:1.00}),
+    A("tp_p",   "TP, paciente (P)",   "s", 2, R(12.90,15.70),{e1:13.20, e3:13.90}),
+    A("tp_n",   "TP, controle (N)",   "s", 2, R(12.90,15.70),{e1:12.00, e3:12.00}),
+    A("tp_r",   "TP, relação P/N",    "",  2, R(1.00,1.30),  {e1:1.10,  e3:1.15}),
+    A("tp_at",  "TP, atividade",      "%", 2, MIN(70.00),    {e1:78.70, e3:87.00}),
+    A("rni",    "RNI",                "",  2, R(0.88,1.20),  {e1:1.11,  e3:1.17}),
+  ]},
+  { nome:"Função hepática", itens:[
+    A("ast",  "AST / TGO",            "U/L",   0, R(0,40),    {e0:V(32,{ref:R(16,61)}),       e1:40,   e2:34}),
+    A("alt",  "ALT / TGP",            "U/L",   0, R(0,41),    {e0:V(28,{ref:R(26,61)}),       e1:31,   e2:28}),
+    A("ggt",  "GGT",                  "U/L",   0, MAX(40),    {e0:V(49,{ref:R(15,132),...H06}),e1:29,  e2:22}),
+    A("fa",   "Fosfatase alcalina",   "U/L",   0, MAX(644),   {e0:V(196,{ref:MAX(500),...H06}),e1:693, e2:447}),
+    A("dhl",  "DHL",                  "U/L",   0, R(120,300), {e0:V(247,{ref:MAX(730),...H06}),e1:305}),
+    A("bt",   "Bilirrubina total",    "mg/dL", 2, R(0.3,1.2), {e0:V(0.20,{ref:MAX(1.2),...H06}),e1:0.20, e2:0.30}),
+    A("bd",   "Bilirrubina direta",   "mg/dL", 2, MAX(0.4),   {e0:V(0.06,{ref:MAX(0.5),...H06}),e1:0.01, e2:0.16}),
+    A("bi",   "Bilirrubina indireta", "mg/dL", 2, MAX(0.8),   {e0:V(0.14,H06),                 e1:0.19, e2:0.14}),
+    A("pt",   "Proteínas totais",     "g/dL",  2, R(5.1,7.5), {e1:5.90}),
+    A("alb",  "Albumina",             "g/dL",  1, R(3.8,5.4), {e0:4.2, e1:4.3}),
+    A("glob", "Globulina",            "g/dL",  2, null,       {e1:1.60}),
+    A("ag",   "Relação A/G",          "",      2, null,       {e1:2.68}),
+  ]},
+  { nome:"Função renal e eletrólitos", itens:[
+    A("ureia", "Ureia",                   "mg/dL",  0, R(10,50),       {e0:V(7,{ref:R(15,40)}),         e1:16,   e2:10}),
+    A("creat", "Creatinina",              "mg/dL",  2, R(0.17,0.42),   {e0:0.31,                        e1:0.30, e2:0.20}),
+    A("tfg",   "TFG estimada (Schwartz)", "mL/min", 0, MIN(60),        {e0:69}),
+    A("na",    "Sódio",                   "mmol/L", 0, R(136,145),     {e0:138,                         e1:136,  e2:133,  e3:130}),
+    A("k",     "Potássio",                "mmol/L", 1, R(3.4,4.7),     {e0:V(5.0,{ref:R(3.5,5.1)}),     e1:4.8,  e2:3.9,  e3:3.8}),
+    A("cl",    "Cloretos",                "mmol/L", 0, R(98,113),      {e0:V(105,{ref:R(98,107)}),      e3:101}),
+    A("ca",    "Cálcio",                  "mg/dL",  1, R(8.5,10.5),    {e0:V(10.4,{ref:R(9.0,11.0),...H06}), e1:10.3}),
+    A("cai",   "Cálcio iônico",           "mmol/L", 3, R(1.150,1.330), {e2:1.300}),
+    A("mg",    "Magnésio",                "mg/dL",  2, R(1.50,2.20),   {e0:V(2.1,{dec:1,ref:R(1.5,2.2),...H06}), e1:1.70, e2:1.40, e3:1.50}),
+    A("p",     "Fósforo",                 "mg/dL",  1, R(3.7,6.5),     {e0:V(7.1,{ref:R(3.5,6.6),...H06}), e2:4.2, e3:3.5}),
+  ]},
+  { nome:"Inflamação", itens:[
+    A("pcr", "Proteína C reativa", "mg/L", 1, R(0.0,5.0), {e0:V(0.79,{dec:2,ref:MAX(5.0),nota:"ultrassensível"}), e1:1.5, e2:64.8, e3:3.9}),
+  ]},
+  { nome:"Metabólico e muscular", itens:[
+    A("lact", "Ácido lático (venoso)", "mg/dL", 1, R(4.5,19.8), {e0:V(39.0,H06)}),
+    A("ck",   "CK total",              "U/L",   0, R(41,330),   {e0:V(86,H06)}),
+    A("uric", "Ácido úrico",           "mg/dL", 1, R(1.7,5.1),  {e0:V(3.0,H06)}),
+  ]},
+  { nome:"Tireoide", itens:[
+    A("tsh", "TSH",      "µUI/mL", 2, R(1.70,9.10), {e0:1.34}),
+    A("t4l", "T4 livre", "ng/dL",  2, R(0.70,1.48), {e0:1.22}),
+  ]},
+  { nome:"Gasometria venosa", nota:"Coleta 16/10 15:23.", itens:[
+    A("v_ph",   "pH",        "",       3, R(7.300,7.400), {e2:7.374}),
+    A("v_po2",  "pO₂",       "mmHg",   1, R(25.0,40.0),   {e2:35.1}),
+    A("v_pco2", "pCO₂",      "mmHg",   1, R(34.0,48.0),   {e2:40.3}),
+    A("v_hco3", "HCO₃⁻",     "mmol/L", 1, R(21.0,28.0),   {e2:23.7}),
+    A("v_co2",  "CO₂ total", "mmol/L", 1, R(24.0,31.0),   {e2:25.0}),
+    A("v_be",   "BE",        "mmol/L", 1, R(-1.0,5.0),    {e2:-0.7}),
+    A("v_sat",  "SatO₂",     "%",      1, null,           {e2:65.9}),
+  ]},
+  { nome:"Gasometria arterial", nota:"Coleta 17/10 13:46.", itens:[
+    A("a_ph",   "pH",        "",       3, R(7.350,7.450), {e3:7.326}),
+    A("a_po2",  "pO₂",       "mmHg",   1, R(75.0,95.0),   {e3:141.3}),
+    A("a_pco2", "pCO₂",      "mmHg",   1, R(31.0,48.0),   {e3:39.6}),
+    A("a_hco3", "HCO₃⁻",     "mmol/L", 1, R(21.0,28.0),   {e3:20.9}),
+    A("a_co2",  "CO₂ total", "mmol/L", 1, R(21.0,31.0),   {e3:22.1}),
+    A("a_be",   "BE",        "mmol/L", 1, R(-2.4,2.4),    {e3:-4.0}),
+    A("a_sat",  "SatO₂",     "%",      1, R(95.0,99.0),   {e3:99.0}),
+  ]},
+  { nome:"Virologia", itens:[
+    A("cmv_igg", "CMV IgG",                "AU/mL", 2, {max:6.0,  rotulo:"Não reagente < 6,0"},                         {e0:V(71.23,{nota:"Reagente"})}),
+    A("cmv_igm", "CMV IgM",                "S/CO",  2, {max:0.85, rotulo:"Não reagente < 0,85; indeterminado 0,85 a 1,0"}, {e0:V(1.82,{nota:"Reagente"})}),
+    A("cmv_pcr", "CMV, PCR quantitativo",  "UI/mL", 0, T("Não detectado"),                                              {e2:"Não detectado"}),
+  ]},
+  { nome:"Aminoácidos", recolhido:true, meta:"19 analitos, perfil normal", nota:"Cromatografia LC-MS/MS (Hermes Pardini), coleta 29/09 09:58. Interpretação do laboratório: perfil normal.", itens:[
+    A("aa_asa", "Ácido argininossuccínico", "µmol/L", 1, MAX(2.0),      {e0:0.2}),
+    A("aa_asp", "Ácido aspártico",          "µmol/L", 1, MAX(30.0),     {e0:20.9}),
+    A("aa_glu", "Ácido glutâmico",          "µmol/L", 1, R(10.0,200.0), {e0:117.4}),
+    A("aa_ala", "Alanina",                  "µmol/L", 1, R(36.0,250.0), {e0:136.8}),
+    A("aa_arg", "Arginina",                 "µmol/L", 1, R(10.0,60.0),  {e0:36.6}),
+    A("aa_cit", "Citrulina",                "µmol/L", 1, R(2.0,40.0),   {e0:18.8}),
+    A("aa_phe", "Fenilalanina",             "µmol/L", 1, R(10.0,70.0),  {e0:25.2}),
+    A("aa_gly", "Glicina",                  "µmol/L", 1, R(55.0,250.0), {e0:119.8}),
+    A("aa_gln", "Glutamina + Lisina",       "µmol/L", 1, R(6.6,100.0),  {e0:9.4}),
+    A("aa_his", "Histidina",                "µmol/L", 1, R(6.0,250.0),  {e0:70.1}),
+    A("aa_leu", "Leucina + Isoleucina",     "µmol/L", 1, R(30.0,180.0), {e0:85.4}),
+    A("aa_met", "Metionina",                "µmol/L", 1, R(5.0,50.0),   {e0:15.0}),
+    A("aa_orn", "Ornitina",                 "µmol/L", 1, R(15.0,80.0),  {e0:55.8}),
+    A("aa_pro", "Prolina + Asparagina",     "µmol/L", 1, R(50.0,550.0), {e0:289.0}),
+    A("aa_ser", "Serina",                   "µmol/L", 1, R(20.0,120.0), {e0:44.4}),
+    A("aa_tyr", "Tirosina",                 "µmol/L", 1, R(10.0,80.0),  {e0:44.7}),
+    A("aa_thr", "Treonina",                 "µmol/L", 1, R(8.0,70.0),   {e0:45.9}),
+    A("aa_trp", "Triptofano",               "µmol/L", 1, R(7.0,45.0),   {e0:27.9}),
+    A("aa_val", "Valina",                   "µmol/L", 1, R(35.0,200.0), {e0:62.1}),
+  ]},
+];
+
+/* ========================= lógica ========================= */
+const LAST = EXAMES[EXAMES.length-1].id;
+const nf = {};
+function fmt(n, dec){
+  if (n == null) return "—";
+  if (typeof n !== "number") return String(n);
+  const k = dec|0;
+  if (!nf[k]) nf[k] = new Intl.NumberFormat("pt-BR", {minimumFractionDigits:k, maximumFractionDigits:k});
+  return nf[k].format(n).replace("-", "−");
+}
+function ponto(an, exId){
+  let e = an.valores[exId];
+  if (e === undefined) return {v:null, ref:an.ref, dec:an.dec};
+  if (typeof e !== "object" || e === null) e = {v:e};
+  return {v:e.v, pct:e.pct, ref:(e.ref !== undefined ? e.ref : an.ref), dec:(e.dec != null ? e.dec : an.dec), nota:e.nota, hora:e.hora};
+}
+function pontos(an){
+  return EXAMES.map((ex,i)=>Object.assign(ponto(an, ex.id), {ex, i, t:Date.parse(ex.ts)}));
+}
+function status(v, ref){
+  if (v == null) return "none";
+  if (!ref) return "na";
+  if (ref.texto !== undefined) return String(v).trim().toLowerCase() === ref.texto.trim().toLowerCase() ? "ok" : "alt";
+  if (typeof v !== "number") return "na";
+  if (ref.min != null && v < ref.min) return "low";
+  if (ref.max != null && v > ref.max) return "high";
+  return "ok";
+}
+const ABN = s => s === "low" || s === "high" || s === "alt";
+function dist(v, ref){
+  const s = status(v, ref);
+  if (s === "alt") return 1;
+  if (s !== "low" && s !== "high") return 0;
+  const w = (ref.min != null && ref.max != null) ? (ref.max - ref.min) : Math.abs(ref.max != null ? ref.max : ref.min);
+  const ww = w > 0 ? w : 1;
+  return (s === "low" ? ref.min - v : v - ref.max) / ww;
+}
+function sev(v, ref){ const d = dist(v, ref); return d === 0 ? 0 : (d >= 0.5 ? 2 : 1); }
+function refTexto(ref, an, comUnidade, dec){
+  if (!ref) return "—";
+  if (ref.texto !== undefined) return ref.texto;
+  const d = dec != null ? dec : an.dec;
+  const u = (comUnidade && an.unidade) ? " " + an.unidade : "";
+  if (ref.rotulo) return ref.rotulo + u;
+  const f = n => fmt(n, d);
+  if (ref.min != null && ref.max != null) return `${f(ref.min)} a ${f(ref.max)}${u}`;
+  if (ref.max != null) return `≤ ${f(ref.max)}${u}`;
+  if (ref.min != null) return `≥ ${f(ref.min)}${u}`;
+  return "—";
+}
+function dominio(pts){
+  let lo = Infinity, hi = -Infinity;
+  const add = x => { if (typeof x === "number" && isFinite(x)) { lo = Math.min(lo, x); hi = Math.max(hi, x); } };
+  pts.forEach(p => { add(p.v); if (p.ref && p.ref.texto === undefined) { add(p.ref.min); add(p.ref.max); } });
+  if (!isFinite(lo)) return null;
+  if (hi === lo) { const e = Math.abs(lo) * 0.1 || 1; lo -= e; hi += e; }
+  const pad = (hi - lo) * 0.15;
+  return [lo - pad, hi + pad];
+}
+function niceTicks(lo, hi, n){
+  const raw = (hi - lo) / n, mag = Math.pow(10, Math.floor(Math.log10(raw))), norm = raw / mag;
+  const step = (norm < 1.5 ? 1 : norm < 3 ? 2 : norm < 7 ? 5 : 10) * mag;
+  const out = []; for (let v = Math.ceil(lo / step) * step; v <= hi + 1e-9; v += step) out.push(+v.toFixed(10));
+  return {ticks: out, dec: Math.max(0, -Math.floor(Math.log10(step) + 1e-9))};
+}
+function pctTxt(pct){ return fmt(pct, pct % 1 ? 1 : 0) + " %"; }
+function horaDe(p){ return p.hora || p.ex.horaPadrao || p.ex.hora; }
+
+/* ======================== render ======================== */
+function cellHtml(an, p){
+  if (p.v == null) return `<span class="v none">—</span>`;
+  const s = status(p.v, p.ref), sv = sev(p.v, p.ref);
+  const arr = s === "low" ? `<span class="arr">↓</span>` : s === "high" ? `<span class="arr">↑</span>` : "";
+  const subs = [p.pct != null ? pctTxt(p.pct) : null, p.nota].filter(Boolean).map(t => `<span class="sub">${t}</span>`).join("");
+  return `<span class="v ${s} s${sv}" title="Ref. ${refTexto(p.ref, an, true, p.dec)}">${fmt(p.v, p.dec)}${arr}</span>${subs}`;
+}
+function sparkline(an, pts){
+  const dom = dominio(pts); if (!dom) return "";
+  const W = 150, H = 36, px = 9, py = 5, n = pts.length, [lo, hi] = dom;
+  const xs = i => n === 1 ? W/2 : px + i * (W - 2*px) / (n - 1);
+  const ys = v => H - py - (v - lo) / (hi - lo) * (H - 2*py);
+  let band = "";
+  pts.forEach((p, i) => {
+    const r = p.ref; if (!r || r.texto !== undefined) return;
+    const x0 = i === 0 ? 0 : (xs(i-1) + xs(i)) / 2, x1 = i === n-1 ? W : (xs(i) + xs(i+1)) / 2;
+    const top = r.max != null ? ys(r.max) : 0, bot = r.min != null ? ys(r.min) : H;
+    band += `<rect x="${x0.toFixed(1)}" y="${top.toFixed(1)}" width="${(x1-x0).toFixed(1)}" height="${Math.max(1.5, bot-top).toFixed(1)}" class="band"/>`;
+  });
+  const num = pts.filter(p => typeof p.v === "number");
+  const path = num.length > 1 ? `<path class="spark-line" d="${num.map((p,k)=>`${k?"L":"M"}${xs(p.i).toFixed(1)} ${ys(p.v).toFixed(1)}`).join(" ")}"/>` : "";
+  const dots = num.map(p => `<circle cx="${xs(p.i).toFixed(1)}" cy="${ys(p.v).toFixed(1)}" r="3" class="dot ${status(p.v, p.ref)}"/>`).join("");
+  return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" class="spark" aria-hidden="true">${band}${path}${dots}</svg>`;
+}
+function chartBig(an, pts){
+  const dom = dominio(pts); if (!dom) return "";
+  const W = 640, H = 210, ml = 56, mr = 20, mt = 24, mb = 38, n = pts.length, [lo, hi] = dom;
+  const t0 = Math.min(...pts.map(p=>p.t)), t1 = Math.max(...pts.map(p=>p.t)), span = (t1 - t0) || 1;
+  const xs = p => n === 1 ? ml + (W-ml-mr)/2 : ml + (p.t - t0) / span * (W - ml - mr);
+  const ys = v => H - mb - (v - lo) / (hi - lo) * (H - mt - mb);
+  const {ticks, dec} = niceTicks(lo, hi, 4);
+  const grid = ticks.map(t => `<line x1="${ml}" x2="${W-mr}" y1="${ys(t).toFixed(1)}" y2="${ys(t).toFixed(1)}" class="grid"/><text x="${ml-8}" y="${(ys(t)+3.5).toFixed(1)}" text-anchor="end" class="tick">${fmt(t, dec)}</text>`).join("");
+  let band = "";
+  pts.forEach((p, i) => {
+    const r = p.ref; if (!r || r.texto !== undefined) return;
+    const x0 = i === 0 ? ml : (xs(pts[i-1]) + xs(p)) / 2, x1 = i === n-1 ? W-mr : (xs(p) + xs(pts[i+1])) / 2;
+    const top = r.max != null ? ys(r.max) : mt, bot = r.min != null ? ys(r.min) : H - mb;
+    band += `<rect x="${x0.toFixed(1)}" y="${top.toFixed(1)}" width="${(x1-x0).toFixed(1)}" height="${Math.max(1.5, bot-top).toFixed(1)}" class="band"/>`;
+  });
+  const xl = pts.map(p => `<text x="${xs(p).toFixed(1)}" y="${H-mb+15}" text-anchor="middle" class="xl${p.v==null?" dim":""}">${p.ex.dia}</text><text x="${xs(p).toFixed(1)}" y="${H-mb+28}" text-anchor="middle" class="xl2${p.v==null?" dim":""}">${p.v==null?p.ex.horaPadrao:horaDe(p)}</text>`).join("");
+  const num = pts.filter(p => typeof p.v === "number");
+  const path = num.length > 1 ? `<path class="chart-line" d="${num.map((p,k)=>`${k?"L":"M"}${xs(p).toFixed(1)} ${ys(p.v).toFixed(1)}`).join(" ")}"/>` : "";
+  const dots = num.map(p => { const s = status(p.v, p.ref); return `<circle cx="${xs(p).toFixed(1)}" cy="${ys(p.v).toFixed(1)}" r="4.5" class="dot ${s}"/><text x="${xs(p).toFixed(1)}" y="${(ys(p.v)-9).toFixed(1)}" text-anchor="middle" class="vl ${s}">${fmt(p.v, p.dec)}</text>`; }).join("");
+  return `<svg viewBox="0 0 ${W} ${H}" class="chart" role="img" aria-label="Evolução de ${an.nome}"><line x1="${ml}" x2="${W-mr}" y1="${H-mb}" y2="${H-mb}" class="grid"/>${grid}${band}${path}${dots}${xl}</svg>`;
+}
+function detailHtml(an, pts){
+  const avail = pts.filter(p => p.v != null);
+  const list = avail.map(p => {
+    const s = status(p.v, p.ref);
+    const extra = [p.pct != null ? `(${pctTxt(p.pct)})` : null, p.nota].filter(Boolean).join(", ");
+    return `<li><span class="dl-d">${p.ex.dia} ${horaDe(p)}</span><span><span class="v ${s} s${sev(p.v,p.ref)}">${fmt(p.v, p.dec)}</span>${an.unidade ? ` <span style="color:var(--text-2)">${an.unidade}</span>` : ""}${extra ? ` <span style="color:var(--text-3)">${extra}</span>` : ""}</span><span class="dl-l">${p.ex.lab}, ${p.ex.local}</span><span class="dl-r">Ref. ${refTexto(p.ref, an, true, p.dec)}</span></li>`;
+  }).join("");
+  const chart = avail.some(p => typeof p.v === "number") ? chartBig(an, pts) : "";
+  return `<div class="detail-in">${chart ? `<div>${chart}</div>` : ""}<ul class="dl">${list}</ul></div>`;
+}
+function rowHtml(an){
+  const pts = pontos(an);
+  const anyAlt = pts.some(p => ABN(status(p.v, p.ref)));
+  const cells = pts.map(p => `<td class="c-v${p.ex.id === LAST ? " cur" : ""}">${cellHtml(an, p)}</td>`).join("");
+  const lastP = [...pts].reverse().find(p => p.v != null);
+  const lastRef = lastP ? lastP.ref : an.ref, lastDec = lastP ? lastP.dec : an.dec;
+  const refsDiffer = pts.filter(p => p.v != null).some(p => JSON.stringify(p.ref) !== JSON.stringify(lastRef));
+  return `<tr class="row${anyAlt ? " alt" : ""}" data-id="${an.id}" tabindex="0">
+    <td class="c-an"><span class="an-nome">${an.nome}</span>${an.unidade ? `<span class="an-un">${an.unidade}</span>` : ""}</td>
+    ${cells}
+    <td class="c-t">${sparkline(an, pts)}</td>
+    <td class="c-r">${refTexto(lastRef, an, false, lastDec)}${refsDiffer ? ` <span class="refchg" title="A referência mudou entre coletas (laboratório diferente); veja o detalhe.">*</span>` : ""}</td>
+  </tr>
+  <tr class="detail" data-for="${an.id}"><td colspan="${EXAMES.length + 3}">${detailHtml(an, pts)}</td></tr>`;
+}
+function alertas(){
+  const out = [];
+  PAINEIS.forEach(pn => pn.itens.forEach(an => {
+    const avail = pontos(an).filter(p => p.v != null); if (!avail.length) return;
+    const last = avail[avail.length-1], s = status(last.v, last.ref);
+    if (!ABN(s)) return;
+    let run = 0; for (let i = avail.length-1; i >= 0 && ABN(status(avail[i].v, avail[i].ref)); i--) run++;
+    out.push({an, last, s, run, d: dist(last.v, last.ref), isLatest: last.ex.id === LAST});
+  }));
+  out.sort((a, b) => (b.isLatest - a.isLatest) || (b.d - a.d));
+  return out;
+}
+function contagemAlteradosPorExame(){
+  const c = {}; EXAMES.forEach(ex => c[ex.id] = 0);
+  PAINEIS.forEach(pn => pn.itens.forEach(an => EXAMES.forEach(ex => { const p = ponto(an, ex.id); if (ABN(status(p.v, p.ref))) c[ex.id]++; })));
+  return c;
+}
+
 function render(){
-  const q=state.q.trim().toLowerCase();
-  let total=0, out="";
-  for(const mat of MATERIALS){
-    const matRows = ROWS.filter(r=>(r.m||"sangue")===mat.id);
-    const usedDates = DATES.filter(dt=>matRows.some(r=>r.v[dt.id]!==undefined));
-    let body="", shown=0;
-    const matGroups=[...new Set(matRows.map(r=>r.g))];
-    for(const g of matGroups){
-      if(state.group && state.group!==g) continue;
-      const rows = matRows.filter(r=>r.g===g)
-        .filter(r=>!q || r.n.toLowerCase().includes(q))
-        .filter(r=>!state.onlyMulti || Object.values(r.v).filter(x=>typeof x==="number").length>=2);
-      if(!rows.length) continue;
-      body += `<tr class="group"><td colspan="${usedDates.length+2}">${g}<span>${rows.length}</span></td></tr>`;
-      for(const r of rows){
-        shown++;
-        body += `<tr><td class="name">${r.n}${r.u?`<span class="u">${r.u}</span>`:""}</td>`;
-        body += usedDates.map(dt=>cell(r, DATES.indexOf(dt))).join("");
-        body += `<td class="note">${r.note||""}</td></tr>`;
-      }
-    }
-    if(!shown) continue;
-    total+=shown;
-    out += `<h2>${mat.title}<span>${mat.sub}${mat.sub?" · ":""}${shown} exames</span></h2>`;
-    out += `<div class="scroller"><table><thead><tr><th>Exame</th>${usedDates.map(dt=>`<th><span class="d">${dt.label}</span><span class="t">${dt.sub}</span></th>`).join("")}<th style="text-align:left">Observação</th></tr></thead><tbody>${body}</tbody></table></div>`;
+  const labs = [...new Set(EXAMES.map(e => e.lab))];
+  document.getElementById("pac-nome").textContent = PACIENTE.nome;
+
+  const al = alertas();
+  document.getElementById("alertas").innerHTML = al.length ? al.map(a =>
+    `<button type="button" class="chip ${a.s} s${sev(a.last.v, a.last.ref)}" data-goto="${a.an.id}">${a.an.nome} <b>${fmt(a.last.v, a.last.dec)}</b>${a.s === "low" ? "↓" : a.s === "high" ? "↑" : ""}${a.run > 1 ? `<span class="cs">×${a.run}</span>` : ""}${a.isLatest ? "" : `<span class="cs">${a.last.ex.dia}</span>`}</button>`
+  ).join("") : `<span class="empty">Nenhum resultado fora da referência.</span>`;
+
+  const cont = contagemAlteradosPorExame();
+  const head = `<thead><tr>
+    <th class="c-an">Analito</th>
+    ${EXAMES.map(ex => `<th class="${ex.id === LAST ? "cur" : ""}">${ex.dia}<span class="h2">${ex.hora}</span><span class="h2">${ex.lab}</span><span class="h2">${cont[ex.id]} alterado${cont[ex.id] === 1 ? "" : "s"}</span></th>`).join("")}
+    <th class="c-t">Tendência</th>
+    <th class="c-r">Referência<span class="h2">da última coleta</span></th>
+  </tr></thead>`;
+
+  document.getElementById("paineis").innerHTML = PAINEIS.map(pn => {
+    const rows = pn.itens.map(rowHtml).join("");
+    const noAlt = !pn.itens.some(an => pontos(an).some(p => ABN(status(p.v, p.ref))));
+    const titulo = pn.recolhido !== undefined
+      ? `<button type="button" class="ptoggle" aria-expanded="${!pn.recolhido}">${pn.nome}${pn.meta ? `<span class="pmeta">${pn.meta}</span>` : ""}</button>`
+      : pn.nome;
+    return `<section class="panel${noAlt ? " no-alt" : ""}${pn.recolhido ? " collapsed" : ""}">
+      <h2>${titulo}</h2>${pn.nota ? `<p class="nota">${pn.nota}</p>` : `<p class="nota"></p>`}
+      <div class="tbl-wrap"><table class="flow">${head}<tbody>${rows}</tbody></table></div>
+    </section>`;
+  }).join("");
+
+  document.getElementById("rodape").innerHTML =
+    `Transcrito dos laudos: ${labs.join(" e ")}, coletas de ${EXAMES.map(e => e.dia).join(", ")}/2026. Confira no laudo original antes de decidir. ` +
+    `Cada valor é comparado com a referência impressa no próprio laudo daquela coleta; como os laboratórios usam faixas diferentes, a coluna Referência mostra a da última coleta e o asterisco marca linhas em que ela mudou. ` +
+    `Na coleta de 29/09, exames de bioquímica foram colhidos às 06:23 e os demais às 09:58; a PCR foi dosada por método ultrassensível, mesmo corte de 5 mg/L. ` +
+    `Toque em uma linha para ver o gráfico em escala de tempo real e todos os resultados.`;
+}
+
+function toggleRow(tr, force){
+  const det = tr.nextElementSibling;
+  const open = force != null ? force : !tr.classList.contains("open");
+  tr.classList.toggle("open", open); det.classList.toggle("open", open);
+}
+document.addEventListener("click", e => {
+  const pt = e.target.closest(".ptoggle");
+  if (pt) { const sec = pt.closest(".panel"); const c = sec.classList.toggle("collapsed"); pt.setAttribute("aria-expanded", String(!c)); return; }
+  const chip = e.target.closest("[data-goto]");
+  if (chip) {
+    const tr = document.querySelector(`tr.row[data-id="${chip.dataset.goto}"]`);
+    if (!tr) return;
+    document.getElementById("only-alt").checked = false; document.getElementById("paineis").classList.remove("only-alt");
+    tr.closest(".panel").classList.remove("collapsed");
+    toggleRow(tr, true); tr.scrollIntoView({block:"center", behavior:"smooth"}); tr.focus({preventScroll:true});
+    return;
   }
-  document.getElementById("sections").innerHTML = out || `<div class="scroller"><div class="empty">Nenhum exame corresponde ao filtro. Limpe a busca ou troque o grupo.</div></div>`;
-  document.getElementById("count").textContent = `${total} exames`;
-  fitScrollers();
-}
-function fitScrollers(){
-  for(const sc of document.querySelectorAll(".scroller")){
-    const top=sc.getBoundingClientRect().top+window.scrollY;
-    sc.style.maxHeight=Math.max(240, window.innerHeight-top-14)+"px";
-  }
-}
-// chips
-const controls=document.getElementById("controls");
-const all=document.createElement("button"); all.className="chip"; all.textContent="Todos"; all.setAttribute("aria-pressed","true");
-all.onclick=()=>{state.group=null; syncChips(); render();};
-controls.appendChild(all);
-for(const g of groups){
-  const b=document.createElement("button"); b.className="chip"; b.textContent=g; b.dataset.g=g; b.setAttribute("aria-pressed","false");
-  b.onclick=()=>{state.group = state.group===g?null:g; syncChips(); render();};
-  controls.appendChild(b);
-}
-const count=document.createElement("span"); count.id="count"; count.style.cssText="color:var(--muted);font-size:13px;margin-left:auto"; controls.appendChild(count);
-function syncChips(){ for(const b of controls.querySelectorAll(".chip")) b.setAttribute("aria-pressed", String((b.dataset.g||null)===state.group)); }
-document.getElementById("q").addEventListener("input",e=>{state.q=e.target.value; render();});
-document.getElementById("onlyMulti").addEventListener("change",e=>{state.onlyMulti=e.target.checked; render();});
+  const tr = e.target.closest("tr.row"); if (tr) toggleRow(tr);
+});
+document.addEventListener("keydown", e => {
+  if ((e.key === "Enter" || e.key === " ") && e.target.matches("tr.row")) { e.preventDefault(); toggleRow(e.target); }
+});
+document.getElementById("only-alt").addEventListener("change", e => document.getElementById("paineis").classList.toggle("only-alt", e.target.checked));
+document.getElementById("exp-all").addEventListener("click", e => {
+  const rows = [...document.querySelectorAll("tr.row")];
+  const anyClosed = rows.some(r => !r.classList.contains("open"));
+  rows.forEach(r => toggleRow(r, anyClosed));
+  e.target.textContent = anyClosed ? "Recolher gráficos" : "Expandir gráficos";
+});
 render();
-window.addEventListener("resize",fitScrollers);
 </script>
 </body>
 </html>
